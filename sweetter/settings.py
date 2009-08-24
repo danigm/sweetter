@@ -65,6 +65,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'sweetter.urls'
 
+AUTH_PROFILE_MODULE = 'ublogging.Profile'
+
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
