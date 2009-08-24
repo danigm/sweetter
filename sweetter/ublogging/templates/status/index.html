@@ -1,0 +1,16 @@
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="status/new/" method="post">
+	<textarea maxlength="140" name="text" id="text"></textarea>
+	<input type="submit" value="Post!" />
+</form>
+{% if latest_post_list %}
+    <ul>
+    {% for post in latest_post_list %}
+        <li>{{ post.text }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}
