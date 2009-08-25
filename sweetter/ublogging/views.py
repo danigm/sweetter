@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
+from django.contrib.auth.forms import UserCreationForm
 from sweetter.ublogging.models import Post, User
 import datetime
 
@@ -14,3 +15,25 @@ def new(request):
     post.save()
     return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
 
+def join(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            errormessage = "Gracias por registrarte"
+            form = UserCreationForm()
+            return render_to_response('join.html', {
+                'error_message': errormessage,
+                'form': form,
+            })
+        else:
+            return render_to_response('join.html', {
+                'error_message': "Error de validacion",
+                'form': form
+            })
+    else:
+        form = UserCreationForm()
+        return render_to_response('join.html', {
+            'form': form,
+        })
+    

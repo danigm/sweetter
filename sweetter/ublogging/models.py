@@ -30,3 +30,12 @@ def user_post_save(sender, instance, signal, *args, **kwargs):
     profile, new = Profile.objects.get_or_create(user=instance)
 
 models.signals.post_save.connect(user_post_save, sender=User)
+
+# FORMS
+from django.forms import ModelForm
+
+# RegisterProfile
+class RegisterUserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username','email','password']
