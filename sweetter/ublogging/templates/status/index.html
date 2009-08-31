@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load sweettags %}
 
 {% block top %}
 {% if user.is_authenticated %}
@@ -7,21 +8,19 @@
 	<input type="submit" value="Post!" />
 </form>
 {% endif %}
-{% endblock %}
+{% endblock top %}
 
 {% block content %}
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 {% if latest_post_list %}
     <div id="sweets">
-        <ul>
-        {% for post in latest_post_list %}
-            <li>{{ post.user.username }} said: {{ post.text }}</li>
+        {% for post in latest_post_list %}            
+            {% format_sweet post %}
         {% endfor %}
-        </ul>
     </div>
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
 
-{% endblock %}
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% load sweettags %}
+
+
+<div class="sweet">
+    <div class="avatar">
+        <img src="{% gravatar post.user.email %}" />
+    </div>
+    <div>
+{{ post.user.username }} said: <br/> 
+{{ post.text }}
+    </div>
+</div>
