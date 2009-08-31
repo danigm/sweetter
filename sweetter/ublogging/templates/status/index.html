@@ -16,7 +16,7 @@
     <div id="sweets">
         <ul>
         {% for post in latest_post_list %}
-            <li>{{ post.text }}</li>
+            <li>{{ post.user.username }} said: {{ post.text }}</li>
         {% endfor %}
         </ul>
     </div>

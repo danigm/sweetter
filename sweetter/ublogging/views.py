@@ -14,7 +14,7 @@ def index(request):
 
 def new(request):
     text = request.POST['text']
-    post = Post(text=text, userid = User.objects.all()[0], pub_date = datetime.datetime.now())
+    post = Post(text=text, user = request.user, pub_date = datetime.datetime.now())
     post.save()
     return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
 

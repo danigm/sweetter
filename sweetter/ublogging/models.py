@@ -13,7 +13,7 @@ class Group(models.Model):
     date_created = models.DateField('creation date')
     
 class Post(models.Model):
-    userid = models.ForeignKey(User)
+    user = models.ForeignKey(User)
     text = models.CharField(max_length=140)
     pub_date = models.DateTimeField('date published')
 
