@@ -1,0 +1,32 @@
+{% load webdesign %}
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Sweetter 3.0: {% block title %} Microblogging {% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    {% block css %} {% endblock %}
+  </head>
+  <body>
+    <div id="title">
+        <h1>Sweetter 3.0</h1>
+    </div>
+    <div id="wrapper">
+        <div id="top">
+            {% block top %} {% endblock %}
+        </div>
+        <div id="content">
+            {% block content %}  {% endblock %}{% lorem 8 p %}
+        </div>
+        <div id="sidebar">
+            {% block sidebar %} {% lorem 3 p %} {% endblock %}
+        </div>
+        {% block bottom %} {% endblock %}
+    </div>
+    <div id="footer">
+        {% block footer %} Sweetter 3.0 is opensource software. Powered by Django.{% endblock %}
+    </div>
+  </body>
+</html>

@@ -1,16 +1,27 @@
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+{% extends "base.html" %}
+
+{% block top %}
 {% if user.is_authenticated %}
 <form action="status/new/" method="post">
 	<textarea maxlength="140" name="text" id="text"></textarea>
 	<input type="submit" value="Post!" />
 </form>
 {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 {% if latest_post_list %}
-    <ul>
-    {% for post in latest_post_list %}
-        <li>{{ post.text }}</li>
-    {% endfor %}
-    </ul>
+    <div id="sweets">
+        <ul>
+        {% for post in latest_post_list %}
+            <li>{{ post.text }}</li>
+        {% endfor %}
+        </ul>
+    </div>
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
+
+{% endblock %}

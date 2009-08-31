@@ -1,0 +1,41 @@
+body { 
+}
+
+#title {
+    font-weight: bold;
+    color: #00F;
+    width: 70%;
+    margin: 0 auto;
+}
+
+#wrapper {
+    width: 70%;
+    margin: 0 auto;
+}
+
+    #wrapper #top {
+        
+    }
+
+        #wrapper #top textarea{
+            width:100%;
+        }
+    
+    #wrapper #content {
+        float:left;
+        width:70%;
+        padding: 15px;
+    }
+
+    #wrapper #sidebar{
+        float:left;
+        width:25%;
+        padding: 15px 5px;
+    }
+
+#footer {
+    width: 70%;
+    margin: 0 auto;
+    clear: both;
+    text-align: center;
+}

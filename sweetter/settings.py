@@ -1,3 +1,5 @@
+import os 
+
 # Django settings for sweetter project.
 
 DEBUG = True
@@ -35,7 +37,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(os.getcwd(), 'static/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -82,5 +84,8 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    
+    'django.contrib.webdesign',
+    
 	'sweetter.ublogging'
 )
