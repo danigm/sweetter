@@ -3,10 +3,11 @@
 
 <div class="sweet">
     <div class="avatar">
-        <img src="{% gravatar post.user.email %}" />
+        <img src="{% gravatar post.user.email %}" alt="{{ post.user.username }}" title="{{ post.user.username }}"/>
     </div>
-    <div>
-{{ post.user.username }} said: <br/> 
-{{ post.text }}
+    <div class="text">
+        <span class="username">{{ post.user.username }}</span> said: <br/> 
+        <span class="text">{{ post.text }}</span>
     </div>
+    <div class="date">{{ post.pub_date|timesince }} ago</div>
 </div>
