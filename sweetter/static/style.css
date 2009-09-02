@@ -13,6 +13,13 @@ body {
     margin: 0 auto;
 }
 
+    #wrapper #links li{
+        display: inline;
+        list-style-type: none;
+        padding-right: 20px;
+    }
+    
+
     #wrapper #top {
         
     }
@@ -31,6 +38,7 @@ body {
         float:left;
         width:25%;
         padding: 15px 5px;
+        border: 1px solid #000;
     }
 
 #footer {
@@ -49,4 +57,13 @@ body {
     .sweet div {
         float: left;
         padding: 10px;
+    }
+    .sweet div.avatar {
+        clear:left;
+    }
+    .sweet div.date {
+        clear:both;
+        padding: 3px;
+        font-size: small; 
+        color: #888;
     }

@@ -52,6 +52,14 @@ ADMIN_MEDIA_PREFIX = '/media/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'om7odj)f4_bn-djy!^tdw2!!49ip+86e98#0-(#*vzg@x4sqag'
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth', 
+    'django.core.context_processors.debug', 
+    'django.core.context_processors.i18n', 
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
+)
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
@@ -75,7 +83,8 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	'templates'
+	'templates',    
+    # Plugins add their own templates
 )
 
 INSTALLED_APPS = (
@@ -88,4 +97,8 @@ INSTALLED_APPS = (
     'django.contrib.webdesign',
     
 	'sweetter.ublogging'
+)
+
+INSTALLED_PLUGINS = (
+    'sweetter.contrib.userform.UserForm.UserForm',
 )
