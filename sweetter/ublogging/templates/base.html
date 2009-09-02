@@ -1,4 +1,5 @@
 {% load webdesign %}
+{% load sweettags %}
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
@@ -14,6 +15,13 @@
         <h1>Sweetter 3.0</h1>
     </div>
     <div id="wrapper">
+        <div id="links">
+            <ul>
+                <li><a href="{% url sweetter.ublogging.views.index %}">Index</a></li>
+                <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+                <li><a href="{% url sweetter.ublogging.views.join %}">Register</a></li>
+            </ul>
+        </div>
         <div id="top">
             {% block top %} {% endblock %}
         </div>
@@ -21,7 +29,7 @@
             {% block content %}  {% endblock %}
         </div>
         <div id="sidebar">
-            {% block sidebar %} {% lorem 3 p %} {% endblock %}
+            {% block sidebar %} {% sidebar %} {% endblock %}
         </div>
         {% block bottom %} {% endblock %}
     </div>
