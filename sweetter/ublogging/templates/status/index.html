@@ -13,11 +13,27 @@
 {% block content %}
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
 {% if latest_post_list %}
     <div id="sweets">
-        {% for post in latest_post_list %}            
+        {% for post in latest_post_list.object_list %}            
             {% format_sweet post %}
         {% endfor %}
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if latest_post_list.has_previous %}
+                <a href="?page={{ latest_post_list.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ latest_post_list.number }} of {{ latest_post_list.paginator.num_pages }}.
+            </span>
+
+            {% if latest_post_list.has_next %}
+                <a href="?page={{ latest_post_list.next_page_number }}">Next</a>
+            {% endif %}
+        </span>
     </div>
 {% else %}
     <p>No posts are available.</p>

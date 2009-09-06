@@ -33,7 +33,14 @@ body {
         width:70%;
         padding: 15px;
     }
-
+        #wrapper #content  div.pagination{
+            clear:both;
+            float:none;
+            margin:0 auto;
+            text-align:center;
+            border: 1px solid #000;
+        }
+        
     #wrapper #sidebar{
         float:left;
         width:25%;
