@@ -1,0 +1,13 @@
+{% load sweettags %}
+
+<div class="profile">
+    <div class="avatar">
+        <img src="{% gravatar user.email %}" alt="{{ user.username }}" title="{{ user.username }}"/>
+    </div>
+    <div class="text">
+        <h2>{{ user.username }}</h2>
+    </div>
+    <div>
+        <a href="{% url django.contrib.auth.views.logout %}">Logout</a>
+    </div>
+</div>

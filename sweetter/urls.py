@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
     (r'^sweetter/login/$','django.contrib.auth.views.login',{'template_name': 'login.html'}),
+    (r'^sweetter/logout/$','django.contrib.auth.views.logout'),
 )
 
 if settings.DEBUG:

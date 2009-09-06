@@ -30,14 +30,15 @@ def do_sidebar(parser, token):
 
 class SidebarNode(template.Node):
     def __init__(self):
-        pass
+        self.user = template.Variable('user')
+        self.request = template.Variable('request')
         
     def render(self, context):
-        try:
-            s = ''.join(p.sidebar(context) for p in ublogging.plugins)    
-        except Exception as e:
-            print e
-            raise
+        user = self.user.resolve(context)
+        request = self.request.resolve(context)
+        context['user'] = user
+        context['request'] = request
+        s = ''.join(p.sidebar(context) for p in ublogging.plugins)    
         return s
     
     
