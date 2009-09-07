@@ -1,4 +1,17 @@
+{% load sweettags %}
+
 <div style="groups">
 <h1>Groups</h1>
-<a href="{% url sweetter.contrib.groups.views.index %}">All groups</a>
+    <div id="groups">
+        {% for group in object_list %}            
+            <div class="avatar">
+                <a href="{% url sweetter.contrib.groups.views.detail group.id %}">
+                <img src="{% gravatar 'danigm@gmail.com' %}" alt="{{ group.name }}" title="{{group.name }}"/>
+                </a>
+            </div>   
+        {% endfor %}
+    </div>
+    <div style="clear:both">
+        <a href="{% url sweetter.contrib.groups.views.index %}">All groups</a>
+    </div>
 </div>

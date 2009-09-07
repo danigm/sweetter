@@ -106,7 +106,7 @@ INSTALLED_APPS = (
 
 INSTALLED_PLUGINS = (
     'sweetter.contrib.userform.UserForm.UserForm',
-    'sweetter.contrib.groups.GroupsPlugin.Group',
+    'sweetter.contrib.groups.GroupsPlugin.GroupHooks',
     'sweetter.contrib.karma.KarmaPlugin.KarmaCount'
 )
 

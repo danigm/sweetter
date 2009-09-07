@@ -68,12 +68,19 @@ body {
     .sweet div.tools {
         float:right;
     }
-    .sweet div.avatar {
-        clear:left;
-    }
     .sweet div.date {
         clear:both;
         padding: 3px;
         font-size: small; 
         color: #888;
+    }
+.avatar {
+    float:left;
+    padding: 5px;
+}
+.group {
+    clear:both;
+}
+    .group .text {
+        padding:15px;    
     }

@@ -26,5 +26,5 @@ if settings.DEBUG:
     )
     
 urlpatterns += patterns('',
-    (r'^groups/$', include('sweetter.contrib.groups.urls')),
+    (r'^groups/', include('sweetter.contrib.groups.urls')),
    )

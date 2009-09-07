@@ -14,5 +14,7 @@
 {% else %}
     <p>No groups are available.</p>
 {% endif %}
-
+<p>
+<a href="{% url sweetter.contrib.groups.views.create %}"/>Create new group</a>
+</p>
 {% endblock content %}
