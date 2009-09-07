@@ -10,7 +10,7 @@ class Profile(models.Model):
 class Post(models.Model):
     user = models.ForeignKey(User)
     text = models.CharField(max_length=140)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField('date published', auto_now=True)
 
     def __unicode__(self):
         return self.text

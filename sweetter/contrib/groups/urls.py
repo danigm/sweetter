@@ -8,6 +8,7 @@ urlpatterns = patterns('sweetter.contrib.groups.views',
 from django.core.urlresolvers import reverse
 from django.conf.urls.defaults import *
 from sweetter.contrib.groups.models import Group
+import settings
 
 info_dict = {
     'queryset': Group.objects.all(),
@@ -27,4 +28,10 @@ urlpatterns = patterns('',
             template_name='groups/create.html'),
         'sweetter.contrib.groups.views.create'
         )
+    )
+    
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.MEDIA_ROOT}),
     )

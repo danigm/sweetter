@@ -6,7 +6,9 @@
         {% for group in object_list %}            
             <div class="avatar">
                 <a href="{% url sweetter.contrib.groups.views.detail group.id %}">
-                <img src="{% gravatar 'danigm@gmail.com' %}" alt="{{ group.name }}" title="{{group.name }}"/>
+                {% comment %} TODO: QUITAR EL /static/ {% endcomment %}
+                <img src="/static/{{ group.icon.url }}" alt="{{ group.name }}" title="{{group.name }}"
+                    width="40px" height="40px"/>
                 </a>
             </div>   
         {% endfor %}

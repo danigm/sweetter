@@ -6,6 +6,8 @@ body {
     color: #00F;
     width: 70%;
     margin: 0 auto;
+    visibility:hidden;
+    background:url('/static/logo.png')
 }
 
 #wrapper {

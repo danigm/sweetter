@@ -5,7 +5,7 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     {{ form.as_p }}
     <input type="submit" value="Create" />
 </form>

@@ -2,7 +2,9 @@
 
 <div class="group">
     <div class="avatar">
-        <img src="{% gravatar 'danigm@gmail.com' %}" alt="{{ group.name }}" title=" group.name"/>
+        {% comment %} TODO: QUITAR EL /static/ {% endcomment %}
+        <img src="/static/{{ group.icon.url }}" alt="{{ group.name }}" title="{{ group.name }}" 
+            width="40px" height="40px"/>
     </div>
     <div class="text">
         <a href="{% url sweetter.contrib.groups.views.detail object_id=group.id %}">{{ group.name }}</a> ({{ group.users.count }})
