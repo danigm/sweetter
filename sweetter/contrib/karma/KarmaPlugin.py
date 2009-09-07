@@ -21,3 +21,6 @@ class KarmaCount:
                 
     def tools(self, context, post):
         return ''
+        
+    def parse(self, value):
+        return value

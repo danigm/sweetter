@@ -7,10 +7,12 @@ class GroupHooks:
         
     def sidebar(self, context):
         user = context['user']
-        print user
         return render_to_string('groupsidebar.html', {
                 'groups': Group.objects.filter(users__user=user),
             }, context_instance=context)
     
     def tools(self, context, post):
         return ''
+        
+    def parse(self, value):
+        return value

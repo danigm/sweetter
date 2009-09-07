@@ -1,8 +1,17 @@
 from django import template
+from django.template.defaultfilters import stringfilter
+
 from sweetter import ublogging
 from sweetter.ublogging.models import Post
 
 register = template.Library()
+
+@register.filter
+@stringfilter
+def parse(value):
+    for p in ublogging.plugins:
+        value = p.parse(value)
+    return value
 
 @register.inclusion_tag("status/sweet.html")
 def format_sweet(sweet):
