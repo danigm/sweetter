@@ -1,0 +1,10 @@
+{% load sweettags %}
+
+<div class="group">
+    <div class="avatar">
+        <img src="{% gravatar 'danigm@gmail.com' %}" alt="{{ group.name }}" title=" group.name"/>
+    </div>
+    <div class="text">
+        <span class="username">{{ group.name }}</span>
+    </div>
+</div>

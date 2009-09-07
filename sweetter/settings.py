@@ -85,6 +85,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 	'templates',    
     # Plugins add their own templates
+    'contrib.groups.templates'
 )
 
 INSTALLED_APPS = (
@@ -96,9 +97,13 @@ INSTALLED_APPS = (
     
     'django.contrib.webdesign',
     
-	'sweetter.ublogging'
+	'sweetter.ublogging',
+    'sweetter.contrib.userform',
+    'sweetter.contrib.groups',
 )
 
 INSTALLED_PLUGINS = (
     'sweetter.contrib.userform.UserForm.UserForm',
+    'sweetter.contrib.groups.GroupsPlugin.Group'
 )
+

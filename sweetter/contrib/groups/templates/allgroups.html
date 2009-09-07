@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load grouptags %}
+
+{% block content %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% if object_list %}
+    <div id="groups">
+        {% for group in object_list %}            
+            {% format_group group %}
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No groups are available.</p>
+{% endif %}
+
+{% endblock content %}
