@@ -17,7 +17,7 @@ class FollowingList:
             return render_to_string('following.html', { 'following': f_list }, context_instance=context)
                 
     def tools(self, context, post):
-        return ''
+        return render_to_string('follow.html', {'user': post.user}, context_instance=context)
         
     def parse(self, value):
         return value
@@ -40,4 +40,4 @@ class FollowerList:
         return ''
         
     def parse(self, value):
-        return value      
+        return value

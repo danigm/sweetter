@@ -23,7 +23,6 @@ class KarmaCount:
         except:
             k = Karma(user = post.user, value=0)
         return render_to_string('karmatool.html', { 'karma': k }, context_instance=context)
-        return ''
         
     def parse(self, value):
         return value
