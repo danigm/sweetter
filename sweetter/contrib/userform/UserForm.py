@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.template.loader import render_to_string
-
+from sweetter.ublogging.models import Post
 
 class UserForm:
 
@@ -29,3 +29,6 @@ class UserForm:
             return render_to_string('loggedin.html', {
                     
                 }, context_instance=context)
+                
+    def tools(self, context, post):
+        return str(post.id)

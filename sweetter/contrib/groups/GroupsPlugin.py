@@ -10,3 +10,6 @@ class Group:
         return render_to_string('groupsidebar.html', {
                 
             }, context_instance=context)
+    
+    def tools(self, context, post):
+        return ''

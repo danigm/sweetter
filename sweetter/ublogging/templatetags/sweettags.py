@@ -40,7 +40,23 @@ class SidebarNode(template.Node):
         context['request'] = request
         s = ''.join(p.sidebar(context) for p in ublogging.plugins)    
         return s
-    
+
+@register.tag("tools")
+def do_tools(parser, token):
+    try:    
+        tag_name, post = token.split_contents()
+    except ValueError:
+        raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[0]
+    return ToolsNode(post)
+
+class ToolsNode(template.Node):
+    def __init__(self, post):        
+        self.post = template.Variable(post)
+        
+    def render(self, context):
+        post = self.post.resolve(context)
+        s = ''.join(p.tools(context, post) for p in ublogging.plugins if p.tools)    
+        return s        
     
     
 from django import template

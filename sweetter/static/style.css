@@ -65,6 +65,9 @@ body {
         float: left;
         padding: 10px;
     }
+    .sweet div.tools {
+        float:right;
+    }
     .sweet div.avatar {
         clear:left;
     }

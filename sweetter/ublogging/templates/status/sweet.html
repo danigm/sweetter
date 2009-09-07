@@ -5,6 +5,9 @@
     <div class="avatar">
         <img src="{% gravatar post.user.email %}" alt="{{ post.user.username }}" title="{{ post.user.username }}"/>
     </div>
+    <div class="tools">
+        {% tools post %}
+    </div>
     <div class="text">
         <span class="username">{{ post.user.username }}</span> said: <br/> 
         <span class="text">{{ post.text }}</span>
