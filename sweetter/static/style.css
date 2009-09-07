@@ -5,11 +5,13 @@ body {
     font-weight: bold;
     color: #00F;
     width: 70%;
+    height:70px;
     margin: 0 auto;
-    visibility:hidden;
-    background:url('/static/logo.png')
 }
-
+    #title h1 {
+        background:url('logo.png') no-repeat;
+        padding: 120px;
+    }
 #wrapper {
     width: 70%;
     margin: 0 auto;
