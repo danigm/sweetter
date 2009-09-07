@@ -18,13 +18,12 @@ class KarmaCount:
             return render_to_string('karmasidebar.html', { 'karma': k }, context_instance=context)
                 
     def tools(self, context, post):
-<<<<<<< TREE
         try:
             k = Karma.objects.get(user = post.user)
         except:
             k = Karma(user = post.user, value=0)
-        return render_to_string('karmatool.html', { 'karma': k }, context_instance=context)=======
+        return render_to_string('karmatool.html', { 'karma': k }, context_instance=context)
         return ''
         
     def parse(self, value):
-        return value>>>>>>> MERGE-SOURCE
+        return value
