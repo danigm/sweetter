@@ -86,7 +86,8 @@ TEMPLATE_DIRS = (
 	'templates',    
     # Plugins add their own templates
     'contrib.groups.templates',
-    'contrib.karma.templates'
+    'contrib.karma.templates',
+    'contrib.followers.templates'
 )
 
 INSTALLED_APPS = (
@@ -102,11 +103,14 @@ INSTALLED_APPS = (
     'sweetter.contrib.userform',
     'sweetter.contrib.groups',
     'sweetter.contrib.karma',
+    'sweetter.contrib.followers',
 )
 
 INSTALLED_PLUGINS = (
     'sweetter.contrib.userform.UserForm.UserForm',
     'sweetter.contrib.groups.GroupsPlugin.GroupHooks',
-    'sweetter.contrib.karma.KarmaPlugin.KarmaCount'
+    'sweetter.contrib.karma.KarmaPlugin.KarmaCount',
+    'sweetter.contrib.followers.FollowerPlugin.FollowingList',
+    'sweetter.contrib.followers.FollowerPlugin.FollowerList'
 )
 

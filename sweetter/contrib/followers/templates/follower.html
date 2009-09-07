@@ -1,0 +1,12 @@
+{% load sweettags %}
+
+<div style="followers">
+<h1>Followers</h1>
+    <div id="followers">
+        {% for follower in followers %}            
+            <div class="avatar">
+                <img src="{% gravatar follower.follower.email %}" alt="{{ follower.follower.username }}" title="{{follower.follower.username }}"/>
+            </div>   
+        {% endfor %}
+    </div>
+</div>
