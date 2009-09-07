@@ -31,4 +31,4 @@ class UserForm:
                 }, context_instance=context)
                 
     def tools(self, context, post):
-        return str(post.id)
+        return ''
