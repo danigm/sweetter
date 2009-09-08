@@ -72,6 +72,9 @@ body {
     .sweet div.tools {
         float:right;
     }
+        .sweet div.tools a img{
+            border:0px;
+        }
     .sweet div.date {
         clear:both;
         padding: 3px;
