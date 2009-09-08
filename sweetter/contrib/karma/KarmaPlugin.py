@@ -22,7 +22,7 @@ class KarmaCount:
             k = Karma.objects.get(user = post.user)
         except:
             k = Karma(user = post.user, value=0)
-        return render_to_string('karmatool.html', { 'karma': k }, context_instance=context)
+        return render_to_string('karmatool.html', { 'karma': k, 'user':post.user }, context_instance=context)
         
     def parse(self, value):
         return value

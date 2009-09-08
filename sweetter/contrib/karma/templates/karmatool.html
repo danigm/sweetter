@@ -1,3 +1,5 @@
-<a class="okbutton" href="?user={{ karma.user.username }}&comm=up"><img src="/static/button-ok.png"></a>
-<a class="cancelbutton" href="?user={{ karma.user.username }}&comm=down"><img src="/static/button-cancel.png"></a>
+<form action="vote/{{ user.id }}/" method="post">
+    <button name="vote" value="1" class="voto"><img src="/static/button-ok.png" alt="plus"></button>
+    <button name="vote" value="-1" class="voto"><img src="/static/button-cancel.png" alt="minus"></button>
+</form>
 <span class="postkarma">{{ karma.value|floatformat:2 }}</span>
