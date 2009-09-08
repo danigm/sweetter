@@ -115,3 +115,11 @@ body {
     .group .text {
         padding:15px;    
     }
+
+.voto {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    background: transparent;
+    cursor:pointer;
+}
