@@ -1,19 +1,32 @@
 body { 
+    background-color:#23733b;
+    margin-top:0px;
+    padding-top:0px;
+    margin-bottom:-10px;
+    padding-bottom:-10px;
+}
+
+#principal{
+    background-color:#5d8469;
+    width:70%;
+    margin:0 auto;
 }
 
 #title {
     font-weight: bold;
     color: #00F;
-    width: 70%;
+    width: 100%;
     height:90px;
     margin: 0 auto;
     background:url('logo.png') no-repeat;
+    background-color:white;
+    border-bottom:solid 3px #060;
 }
     #title h1 {
         display:none;
     }
 #wrapper {
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -29,7 +42,9 @@ body {
     }
 
         #wrapper #top textarea{
-            width:100%;
+            width:95%;
+            margin:0 auto;
+            display:block;
         }
     
     #wrapper #content {
@@ -62,12 +77,16 @@ body {
 
 .sweet {
     border: 1px solid #000;
-    background: #ff9;
+    background: #a9d8b7;
     clear:both;
+    display:block;
+    overflow:auto;
+    margin-bottom:5px;
 }
     .sweet div {
         float: left;
         padding: 10px;
+        display:inline;
     }
     .sweet div.tools {
         float:right;

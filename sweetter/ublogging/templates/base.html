@@ -11,30 +11,32 @@
     {% block css %} {% endblock %}
   </head>
   <body>
-    <div id="title">
-        <h1>Sweetter 3.0</h1>
-    </div>
-    <div id="wrapper">
-        <div id="links">
-            <ul>
-                <li><a href="{% url sweetter.ublogging.views.index %}">Index</a></li>
-                <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
-                <li><a href="{% url sweetter.ublogging.views.join %}">Register</a></li>
-            </ul>
+    <div id="principal">
+        <div id="title">
+            <h1>Sweetter 3.0</h1>
         </div>
-        <div id="top">
-            {% block top %} {% endblock %}
+        <div id="wrapper">
+            <div id="links">
+                <ul>
+                    <li><a href="{% url sweetter.ublogging.views.index %}">Index</a></li>
+                    <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+                    <li><a href="{% url sweetter.ublogging.views.join %}">Register</a></li>
+                </ul>
+            </div>
+            <div id="top">
+                {% block top %} {% endblock %}
+            </div>
+            <div id="content">
+                {% block content %}  {% endblock %}
+            </div>
+            <div id="sidebar">
+                {% block sidebar %} {% sidebar %} {% endblock %}
+            </div>
+            {% block bottom %} {% endblock %}
         </div>
-        <div id="content">
-            {% block content %}  {% endblock %}
+        <div id="footer">
+            {% block footer %} Sweetter 3.0 is opensource software. Powered by Django.{% endblock %}
         </div>
-        <div id="sidebar">
-            {% block sidebar %} {% sidebar %} {% endblock %}
-        </div>
-        {% block bottom %} {% endblock %}
-    </div>
-    <div id="footer">
-        {% block footer %} Sweetter 3.0 is opensource software. Powered by Django.{% endblock %}
     </div>
   </body>
 </html>
