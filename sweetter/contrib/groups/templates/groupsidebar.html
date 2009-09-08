@@ -3,7 +3,7 @@
 <div style="groups">
 <h1>Groups</h1>
     <div id="groups">
-        {% for group in object_list %}            
+        {% for group in group_list %}            
             <div class="avatar">
                 <a href="{% url sweetter.contrib.groups.views.detail group.id %}">
                 {% comment %} TODO: QUITAR EL /static/ {% endcomment %}

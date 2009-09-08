@@ -6,9 +6,9 @@ class GroupHooks:
         pass
         
     def sidebar(self, context):
-        user = context['user']
+        usertemp = context['user']        
         return render_to_string('groupsidebar.html', {
-                'groups': Group.objects.filter(users__user=user),
+                'group_list': Group.objects.filter(users__user=usertemp),
             }, context_instance=context)
     
     def tools(self, context, post):
