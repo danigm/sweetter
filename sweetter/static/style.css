@@ -1,5 +1,5 @@
 body { 
-    background-color:#23733b;
+    background-color:#3b5998;
     margin-top:0px;
     padding-top:0px;
     margin-bottom:-10px;
@@ -7,7 +7,7 @@ body {
 }
 
 #principal{
-    background-color:#5d8469;
+    background-color:#f7f7f7;
     width:70%;
     margin:0 auto;
 }
@@ -46,6 +46,9 @@ body {
             margin:0 auto;
             display:block;
         }
+        #wrapper #top input{
+            margin: 5px 18px;
+        }
     
     #wrapper #content {
         float:left;
@@ -58,6 +61,7 @@ body {
             margin:0 auto;
             text-align:center;
             border: 1px solid #000;
+            background:#dfe3ee;
         }
         
     #wrapper #sidebar{
@@ -65,6 +69,7 @@ body {
         width:25%;
         padding: 15px 5px;
         border: 1px solid #000;
+        background:#dfe3ee;
     }
 
 #footer {
@@ -77,7 +82,7 @@ body {
 
 .sweet {
     border: 1px solid #000;
-    background: #a9d8b7;
+    background: #dfe3ee;
     clear:both;
     display:block;
     overflow:auto;
