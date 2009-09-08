@@ -5,12 +5,12 @@ body {
     font-weight: bold;
     color: #00F;
     width: 70%;
-    height:70px;
+    height:90px;
     margin: 0 auto;
+    background:url('logo.png') no-repeat;
 }
     #title h1 {
-        background:url('logo.png') no-repeat;
-        padding: 120px;
+        display:none;
     }
 #wrapper {
     width: 70%;
