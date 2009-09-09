@@ -13,9 +13,9 @@ def parse(value):
         value = p.parse(value)
     return value
 
-@register.inclusion_tag("status/sweet.html")
-def format_sweet(sweet):
-    return {'post': sweet}
+@register.inclusion_tag("status/sweet.html", takes_context='True')
+def format_sweet(context, sweet):
+    return {'post': sweet, 'context':context}
 
 @register.simple_tag
 def gravatar(email):    
@@ -53,18 +53,20 @@ class SidebarNode(template.Node):
 @register.tag("tools")
 def do_tools(parser, token):
     try:    
-        tag_name, post = token.split_contents()
+        tag_name, post, context = token.split_contents()
     except ValueError:
         raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[0]
-    return ToolsNode(post)
+    return ToolsNode(post,context)
 
 class ToolsNode(template.Node):
-    def __init__(self, post):        
+    def __init__(self, post, the_context):        
         self.post = template.Variable(post)
+        self.the_context = template.Variable(the_context)
         
     def render(self, context):
         post = self.post.resolve(context)
-        s = ''.join(p.tools(context, post) for p in ublogging.plugins if p.tools)    
+        the_context = self.the_context.resolve(context)
+        s = ''.join(p.tools(the_context, post) for p in ublogging.plugins if p.tools)    
         return s        
     
     

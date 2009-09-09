@@ -18,6 +18,8 @@ class KarmaCount:
             return render_to_string('karmasidebar.html', { 'karma': k }, context_instance=context)
                 
     def tools(self, context, post):
+        if post.user.username == context['user'].username:
+            return ''
         try:
             k = Karma.objects.get(user = post.user)
         except:

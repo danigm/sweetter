@@ -6,7 +6,7 @@
         <img src="{% gravatar post.user.email %}" alt="{{ post.user.username }}" title="{{ post.user.username }}"/>
     </div>
     <div class="tools">
-        {% tools post %}
+        {% tools post context %}
     </div>
     <div class="text">
         <span class="username">{{ post.user.username }}</span> said: <br/> 
@@ -14,3 +14,4 @@
     </div>
     <div class="date">{{ post.pub_date|timesince }} ago</div>
 </div>
+{{context}}
