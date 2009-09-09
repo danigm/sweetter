@@ -18,13 +18,15 @@ class KarmaCount:
             return render_to_string('karmasidebar.html', { 'karma': k }, context_instance=context)
                 
     def tools(self, context, post):
-        if post.user.username == context['user'].username:
-            return ''
+        if post.user.username == context['user'].username or not context['user'].is_authenticated():
+            show = None
+        else:
+            show = 1
         try:
             k = Karma.objects.get(user = post.user)
         except:
             k = Karma(user = post.user, value=0)
-        return render_to_string('karmatool.html', { 'karma': k, 'user':post.user }, context_instance=context)
+        return render_to_string('karmatool.html', { 'karma': k, 'user':post.user, 'showvotes':show }, context_instance=context)
         
     def parse(self, value):
         return value
