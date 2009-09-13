@@ -5,7 +5,8 @@
 {% if user.is_authenticated %}
 <form action="status/new/" method="post">
 	<textarea maxlength="140" name="text" id="text"></textarea>
-	<input type="submit" value="Post!" />
+    <span id="counter">140</span>
+	<input class="button" type="submit" value="Post!" />
 </form>
 {% endif %}
 {% endblock top %}

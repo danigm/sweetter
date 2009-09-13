@@ -7,7 +7,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <title>Sweetter 3.0: {% block title %} Microblogging {% endblock %}</title>
-    <link rel="stylesheet" href="/static/style.css" />
+    <!-- <link rel="stylesheet" href="/static/style.css" /> -->
+    
+    <link rel="stylesheet" href="/static/themes/default/css/default.css" />
     {% block css %} {% endblock %}
   </head>
   <body>
@@ -15,14 +17,15 @@
         <div id="title">
             <h1>Sweetter 3.0</h1>
         </div>
+        <div id="links">
+            <ul>
+                <li><a href="{% url sweetter.ublogging.views.index %}">Index</a></li>
+                <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+                <li><a href="{% url sweetter.ublogging.views.join %}">Register</a></li>
+            </ul>
+        </div>
+        <div id="wrapper-top"></div>
         <div id="wrapper">
-            <div id="links">
-                <ul>
-                    <li><a href="{% url sweetter.ublogging.views.index %}">Index</a></li>
-                    <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
-                    <li><a href="{% url sweetter.ublogging.views.join %}">Register</a></li>
-                </ul>
-            </div>
             <div id="top">
                 {% block top %} {% endblock %}
             </div>
@@ -33,7 +36,9 @@
                 {% block sidebar %} {% sidebar %} {% endblock %}
             </div>
             {% block bottom %} {% endblock %}
+            <div id="clear"></div>
         </div>
+        <div id="wrapper-bottom"></div>
         <div id="footer">
             {% block footer %} Sweetter 3.0 is opensource software. Powered by Django.{% endblock %}
         </div>

@@ -22,7 +22,7 @@ def gravatar(email):
     import urllib, hashlib
 
     # Set your variables here
-    size = 40
+    size = 48
 
     # construct the url
     gravatar_url = "http://www.gravatar.com/avatar.php?"

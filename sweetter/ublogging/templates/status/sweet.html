@@ -5,12 +5,14 @@
     <div class="avatar">
         <img src="{% gravatar post.user.email %}" alt="{{ post.user.username }}" title="{{ post.user.username }}"/>
     </div>
+
     <div class="tools">
         {% tools post context %}
     </div>
-    <div class="text">
-        <span class="username">{{ post.user.username }}</span> said: <br/> 
+    <div class="sweet-text">
+        <span class="username"><a href="">{{ post.user.username }}</a></span> 
         <span class="text">{{ post.text|parse }}</span>
+        <div class="date">{{ post.pub_date|timesince }} ago</div>
     </div>
-    <div class="date">{{ post.pub_date|timesince }} ago</div>
+
 </div>

@@ -5,19 +5,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <title>Sweetter 3.0: {% block title %} Microblogging {% endblock %}</title>
-    <link rel="stylesheet" href="/static/style.css" />
+    <!--<link rel="stylesheet" href="/static/style.css" />-->
+    <link rel="stylesheet" href="/static/themes/default/css/default.css" />
+    <link rel="stylesheet" href="/static/themes/default/css/login.css" />
   </head>
   <body>
-    <div id="title">
-        <h1>Sweetter 3.0</h1>
-    </div>
     <div id="wrapper">
-        <div id="content">
-            <h1>Login</h1>
+        <div id="login">
             {{ next }}
             <form method="post" action="{% url django.contrib.auth.views.login %}">
-                {{ form.as_p}}
-                <input type="submit" value="Login" />
+                {{ form.as_p }}
+                <input class="button" type="submit" value="Login" />
             </form>
             
         </div>
