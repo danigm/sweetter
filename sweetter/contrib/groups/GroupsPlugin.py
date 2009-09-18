@@ -19,3 +19,6 @@ class GroupHooks:
         
     def parse(self, value):
         return value
+        
+    def post_list(self, value, user_name):
+        return value

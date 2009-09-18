@@ -1,6 +1,8 @@
 from decimal import Decimal
+from sweetter.ublogging.models import Post, User
 from sweetter.contrib.karma.models import Karma
 from django.template.loader import render_to_string
+from django.db.models import Q
 
 class KarmaCount:      
     def __init__(self):
@@ -28,3 +30,6 @@ class KarmaCount:
         
     def parse(self, value):
         return value
+        
+    def post_list(self, value, user_name):
+        return value | Q(text__icontains='@'+user_name)

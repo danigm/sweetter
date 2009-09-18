@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^sweetter/login/$','django.contrib.auth.views.login',{'template_name': 'login.html'}),
     (r'^sweetter/logout/$','django.contrib.auth.views.logout'),
+    (r'^sweetter/user/(?P<user_name>.*)$','sweetter.ublogging.views.list'),
     (r'^sweetter/vote/(?P<user_id>\d+)/$','sweetter.contrib.karma.views.vote'),
     (r'^sweetter/follow/(?P<user_id>\d+)/$','sweetter.contrib.followers.views.follow'),
 )

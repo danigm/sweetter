@@ -28,6 +28,9 @@ class FollowingList:
         
     def parse(self, value):
         return value
+        
+    def post_list(self, value, user_name):
+        return value
 
 class FollowerList:      
     def __init__(self):
@@ -47,4 +50,7 @@ class FollowerList:
         return ''
         
     def parse(self, value):
+        return value
+        
+    def post_list(self, value, user_name):
         return value
