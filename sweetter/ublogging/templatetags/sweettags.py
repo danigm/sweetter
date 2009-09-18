@@ -45,8 +45,8 @@ class SidebarNode(template.Node):
     def render(self, context):
         user = self.user.resolve(context)
         request = self.request.resolve(context)
-        context['user'] = user
-        context['request'] = request
+        '''context['user'] = user
+        context['request'] = request'''
         s = ''.join(p.sidebar(context) for p in ublogging.plugins)    
         return s
 

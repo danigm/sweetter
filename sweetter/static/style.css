@@ -96,6 +96,9 @@ body {
     .sweet div.tools {
         float:right;
     }
+        .sweet div.tools form{
+            display:inline;
+        }
         .sweet div.tools a img{
             border:0px;
         }
@@ -117,6 +120,14 @@ body {
     }
 
 .voto {
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    background: transparent;
+    cursor:pointer;
+}
+
+.follow{
     border: none;
     padding: 0px;
     margin: 0px;

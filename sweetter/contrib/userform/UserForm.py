@@ -9,7 +9,7 @@ class UserForm:
         pass
         
     def sidebar(self, context):
-        if context['user'] and not context['user'].is_authenticated():
+        if context['perms'].user and not context['perms'].user.is_authenticated():
             form = AuthenticationForm(context['request'].POST) # A form bound to the POST data
             if form.is_valid(): # All validation rules pass
                 user = authenticate(username=form.cleaned_data.username, password=form.cleaned_data.password)
@@ -27,7 +27,7 @@ class UserForm:
                 }, context_instance=context)
         else:
             return render_to_string('loggedin.html', {
-                    
+                    'user':context['perms'].user
                 }, context_instance=context)
                 
     def tools(self, context, post):

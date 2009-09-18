@@ -6,10 +6,10 @@ class GroupHooks:
         pass
         
     def sidebar(self, context):
-        if context['user'] and not context['user'].is_authenticated():
+        if context['perms'].user and not context['perms'].user.is_authenticated():
             return ''
         else:
-            user = context['user']        
+            user = context['perms'].user       
             return render_to_string('groupsidebar.html', {
                     'group_list': Group.objects.filter(users__user=user),
                 }, context_instance=context)

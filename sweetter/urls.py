@@ -15,12 +15,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-    
-    (r'^accounts/login/$','django.contrib.auth.views.login',{'template_name': 'login.html'}),
-    (r'^accounts/logout/$','django.contrib.auth.views.logout'),
-    (r'^accounts/join/$','sweetter.ublogging.views.join'),
-    
+    (r'^sweetter/login/$','django.contrib.auth.views.login',{'template_name': 'login.html'}),
+    (r'^sweetter/logout/$','django.contrib.auth.views.logout'),
     (r'^sweetter/vote/(?P<user_id>\d+)/$','sweetter.contrib.karma.views.vote'),
+    (r'^sweetter/follow/(?P<user_id>\d+)/$','sweetter.contrib.followers.views.follow'),
 )
 
 if settings.DEBUG:
