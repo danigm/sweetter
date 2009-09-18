@@ -5,7 +5,7 @@
         <img src="{% gravatar user.email %}" alt="{{ user.username }}" title="{{ user.username }}"/>
     </div>
     <div class="text">
-        <h2>{{ user.username }}</h2>
+        <h2><a href="{% url sweetter.ublogging.views.list user.username %}">{{user.username}}</a></h2>
     </div>
     <div>
         <a href="{% url django.contrib.auth.views.logout %}">Logout</a>
