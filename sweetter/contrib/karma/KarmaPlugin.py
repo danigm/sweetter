@@ -17,7 +17,9 @@ class KarmaCount:
             except:
                 k=Karma(user=context['perms'].user,value=0)
                 k.save()
-            return render_to_string('karmasidebar.html', { 'karma': k }, context_instance=context)
+            karma_ranking = Karma.objects.all().order_by('-value')[:5]
+            return render_to_string('karmasidebar.html', 
+                { 'karma': k, 'karma_ranking': karma_ranking}, context_instance=context)
                 
     def tools(self, context, post):
         if not context['perms'].user.is_authenticated() or post.user.username == context['perms'].user.username:

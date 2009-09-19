@@ -1,3 +1,14 @@
 <div style="karma">
 <h2>Karma: {{ karma.value|floatformat:2 }}<h2>
 </div>
+<div style="karma_ranking">
+<h3>Karma ranking:</h3>
+<table>
+   {% for entry in karma_ranking %}
+    <tr>
+        <td><a href="{% url sweetter.ublogging.views.user entry.user.username %}">{{ entry.user.username }}</a></td>
+        <td>{{ entry.value }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
