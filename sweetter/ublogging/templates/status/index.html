@@ -3,7 +3,7 @@
 
 {% block top %}
 {% if user.is_authenticated %}
-<form action="status/new/" method="post">
+<form action="{% url sweetter.ublogging.views.new %}" method="post">
 	<textarea maxlength="140" name="text" id="text"></textarea>
 	<input type="submit" value="Post!" />
 </form>

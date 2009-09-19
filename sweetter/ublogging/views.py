@@ -9,7 +9,7 @@ from sweetter.ublogging.models import Post, User
 from django.db.models import Q
 import datetime
 
-def index(request):
+def public_timeline(request):
     latest_post_list = Post.objects.all().order_by('-pub_date')
     paginator = Paginator(latest_post_list, 10) 
 
@@ -27,11 +27,21 @@ def index(request):
             'latest_post_list': latest_post_list
         }, context_instance=RequestContext(request))
 
-def list(request,user_name):
+def index(request):
+    if (request.user.is_authenticated()):
+        return show_user(request, request.user)
+    else:
+        return public_timeline(request)
+
+def user(request, user_name):
     u = User.objects.get(username = user_name)
-    q = Q(user = u)
+    return show_user(request, u)
+
+    
+def show_user(request, user):
+    q = Q(user = user)
     for p in ublogging.plugins:
-        q = p.post_list(q,user_name)
+        q = p.post_list(q, user.username)
     latest_post_list = Post.objects.filter(q).order_by('-pub_date')
     paginator = Paginator(latest_post_list, 10) 
 
@@ -48,6 +58,7 @@ def list(request,user_name):
     return render_to_response('status/index.html', {
             'latest_post_list': latest_post_list
         }, context_instance=RequestContext(request))
+    
         
 def new(request):
     text = request.POST['text']

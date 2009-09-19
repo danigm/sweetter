@@ -9,7 +9,7 @@
         {% tools post context %}
     </div>
     <div class="text">
-        <span class="username"><a href="{% url sweetter.ublogging.views.list post.user.username %}">{{ post.user.username }}</a></span> said: <br/> 
+        <span class="username"><a href="{% url sweetter.ublogging.views.user post.user.username %}">{{ post.user.username }}</a></span> said: <br/> 
         <span class="text">{{ post.text|parse }}</span>
     </div>
     <div class="date">{{ post.pub_date|timesince }} ago</div>
