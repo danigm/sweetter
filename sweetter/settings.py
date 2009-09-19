@@ -60,6 +60,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
 )
 
+INTERNAL_IPS = ('127.0.0.1', )
+
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
