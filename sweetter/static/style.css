@@ -134,3 +134,13 @@ body {
     background: transparent;
     cursor:pointer;
 }
+
+.followers{
+    display:block;
+    overflow:auto;
+}
+
+.following{
+    display:block;
+    overflow:auto;
+}
