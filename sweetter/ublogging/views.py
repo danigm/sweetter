@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib.auth.forms import UserCreationForm
+from sweetter.ublogging.models import RegisterUserForm
 from sweetter import ublogging
 from sweetter.ublogging.models import Post, User
 from django.db.models import Q
@@ -67,11 +67,11 @@ def new(request):
 
 def join(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegisterUserForm(request.POST)
         if form.is_valid():
             form.save()
             errormessage = "Gracias por registrarte"
-            form = UserCreationForm()
+            form = RegisterUserForm()
             return render_to_response('join.html', {
                 'error_message': errormessage,
                 'form': form,
@@ -82,7 +82,7 @@ def join(request):
                 'form': form
             }, context_instance=RequestContext(request))
     else:
-        form = UserCreationForm()
+        form = RegisterUserForm()
         return render_to_response('join.html', {
             'form': form,
         }, context_instance=RequestContext(request))

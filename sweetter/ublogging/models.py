@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 class Profile(models.Model):
     user = models.ForeignKey(User, unique=True)    
@@ -30,7 +31,11 @@ models.signals.post_save.connect(user_post_save, sender=User)
 from django.forms import ModelForm
 
 # RegisterProfile
-class RegisterUserForm(ModelForm):
+class RegisterUserForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super(RegisterUserForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = True
+        
     class Meta:
         model = User
-        fields = ['username','email','password']
+        fields = ('username', 'email')
