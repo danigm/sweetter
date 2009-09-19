@@ -26,7 +26,8 @@ urlpatterns = patterns('',
             login_required= True, post_save_redirect='/groups/',
             template_name='groups/create.html'),
         'sweetter.contrib.groups.views.create'
-        )
+        ),        
+    url(r'^(?P<group_name>.*)/$', 'sweetter.contrib.groups.views.messages')
     )
     
 if settings.DEBUG:
