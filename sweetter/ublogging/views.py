@@ -29,20 +29,20 @@ def public_timeline(request):
 
 def index(request):
     if (request.user.is_authenticated()):
-        return show_user(request, request.user)
+        q = Q(user = request.user)
+        for p in ublogging.plugins:
+            q = p.post_list(q, request, request.user.username)
+        return show_statuses(request, q)
     else:
         return public_timeline(request)
 
 def user(request, user_name):
     u = User.objects.get(username = user_name)
-    return show_user(request, u)
+    q = Q(user = u)
+    return show_statuses(request, q)
 
-    
-def show_user(request, user):
-    q = Q(user = user)
-    for p in ublogging.plugins:
-        q = p.post_list(q, request, user.username)
-    latest_post_list = Post.objects.filter(q).order_by('-pub_date')
+def show_statuses(request, query):
+    latest_post_list = Post.objects.filter(query).order_by('-pub_date')
     paginator = Paginator(latest_post_list, 10) 
 
     try:
@@ -58,8 +58,7 @@ def show_user(request, user):
     return render_to_response('status/index.html', {
             'latest_post_list': latest_post_list
         }, context_instance=RequestContext(request))
-    
-        
+
 def new(request):
     text = request.POST['text']
     post = Post(text=text, user = request.user, pub_date = datetime.datetime.now())
