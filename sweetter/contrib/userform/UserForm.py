@@ -2,6 +2,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.template.loader import render_to_string
 from sweetter.ublogging.models import Post
+from django.core.urlresolvers import reverse
+
+import re
 
 class UserForm:
 
@@ -34,6 +37,15 @@ class UserForm:
         return ''
 
     def parse(self, value):
+        regex = re.compile("[:punct:]*(@[A-Za-z_\-\d]*)[:punct:]*")
+        matches = re.finditer(regex, value)
+        if matches:
+            for match in matches:
+                # TODO: Fix this.
+                #url = reverse('sweetter.ublogging.views.user', kwargs={'user': value[match.start() + 1:match.end()] })
+                url = '/sweetter/user/' + value[match.start() + 1:match.end()]
+                text = match.expand('<a href=\"'+url+'">\\1</a>')
+                value = value.replace(value[match.start():match.end()], text)
         return value
         
     def post_list(self, value, request, user_name):
