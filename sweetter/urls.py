@@ -15,11 +15,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-    (r'^sweetter/login/$','django.contrib.auth.views.login',{'template_name': 'login.html'}),
-    (r'^sweetter/logout/$','django.contrib.auth.views.logout'),
-    (r'^sweetter/user/(?P<user_name>.*)$','sweetter.ublogging.views.list'),
-    (r'^sweetter/vote/(?P<user_id>\d+)/$','sweetter.contrib.karma.views.vote'),
-    (r'^sweetter/follow/(?P<user_id>\d+)/$','sweetter.contrib.followers.views.follow'),
+    (r'^login/$','django.contrib.auth.views.login',{'template_name': 'login.html'}),
+    (r'^logout/$','django.contrib.auth.views.logout'),
+    (r'^join/$','sweetter.ublogging.views.join'),
+    (r'^$', 'sweetter.ublogging.views.index'),
 )
 
 if settings.DEBUG:
@@ -29,5 +28,7 @@ if settings.DEBUG:
     )
     
 urlpatterns += patterns('',
-    (r'^groups/', include('sweetter.contrib.groups.urls')),
+    (r'^groups/', include('sweetter.contrib.groups.urls')),    
+    (r'^sweetter/vote/(?P<user_id>\d+)/$','sweetter.contrib.karma.views.vote'),
+    (r'^sweetter/follow/(?P<user_id>\d+)/$','sweetter.contrib.followers.views.follow'),
    )
