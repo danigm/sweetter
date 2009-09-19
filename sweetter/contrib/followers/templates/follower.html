@@ -6,7 +6,7 @@
         {% for follower in followers %}            
             <div class="avatar">
                 <a href="{% url sweetter.ublogging.views.user follower.follower.username %}">
-                <img src="{% gravatar follower.follower.email %}" alt="{{ follower.follower.username }}" title="{{follower.follower.username }}"/>
+                <img src="{% gravatar follower.follower.email 24 %}" alt="{{ follower.follower.username }}" title="{{follower.follower.username }}"/>
                 </a>
             </div>   
         {% endfor %}

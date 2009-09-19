@@ -18,11 +18,8 @@ def format_sweet(context, sweet):
     return {'post': sweet, 'context':context}
 
 @register.simple_tag
-def gravatar(email):    
+def gravatar(email, size=48):    
     import urllib, hashlib
-
-    # Set your variables here
-    size = 40
 
     # construct the url
     gravatar_url = "http://www.gravatar.com/avatar.php?"
