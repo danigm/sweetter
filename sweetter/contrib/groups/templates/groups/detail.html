@@ -12,12 +12,12 @@
             width="60px" height="60px"/>
     </div>
 <h1>{{ object.name }}</h1>
+<a href="{% url sweetter.contrib.groups.views.join object.name %}">{{ join_message }}</a>
 {% for profile in object.users.all %}
             <div class="avatar">
                 <img src="{% gravatar profile.user.email %}" alt="{{ profile.user.username }}" title="{{profile.user.username }}"/>
             </div>        
 {% endfor %}
-
 
 
 {% endblock content %}
