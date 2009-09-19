@@ -1,6 +1,7 @@
 from decimal import Decimal
 from sweetter.contrib.followers.models import Follower
 from django.template.loader import render_to_string
+from django.db.models import Q
 
 class FollowingList:      
     def __init__(self):
@@ -29,7 +30,7 @@ class FollowingList:
     def parse(self, value):
         return value
         
-    def post_list(self, value, user_name):
+    def post_list(self, value, request, user_name):
         return value
 
 class FollowerList:      
@@ -52,5 +53,5 @@ class FollowerList:
     def parse(self, value):
         return value
         
-    def post_list(self, value, user_name):
-        return value
+    def post_list(self, value, request, user_name):
+        return value | Q(user__in = Follower.objects.filter(follower=request.user).values('user'))

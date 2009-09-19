@@ -41,7 +41,7 @@ def user(request, user_name):
 def show_user(request, user):
     q = Q(user = user)
     for p in ublogging.plugins:
-        q = p.post_list(q, user.username)
+        q = p.post_list(q, request, user.username)
     latest_post_list = Post.objects.filter(q).order_by('-pub_date')
     paginator = Paginator(latest_post_list, 10) 
 

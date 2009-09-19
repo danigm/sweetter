@@ -31,5 +31,5 @@ class KarmaCount:
     def parse(self, value):
         return value
         
-    def post_list(self, value, user_name):
-        return value | Q(text__icontains='@'+user_name)
+    def post_list(self, value, request, user_name):
+        return value
