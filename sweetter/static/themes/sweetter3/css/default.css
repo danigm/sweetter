@@ -152,6 +152,9 @@ body {
     .sweet div.tools {
         float:right;
     }
+        .sweet div.tools form{
+            display:inline;
+        }
         .sweet div.tools a img{
             border:0px;
         }
@@ -188,10 +191,15 @@ body {
         padding:15px;    
     }
 
-.voto {
+.voto, .follow {
     border: none;
     padding: 0px;
     margin: 0px;
     background: transparent;
     cursor:pointer;
+}
+
+.following, .followers{
+    display:block;
+    overflow:auto;
 }
