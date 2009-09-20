@@ -46,10 +46,11 @@ body {
     display: inline;
     list-style-type: none;
     padding-right: 20px;
-    font-size: xx-large;
+    font-size: x-large;
+
 }
     #links a {
-        color: white;
+        color: #cf5b13;
         text-decoration: none;
     }
 
