@@ -18,14 +18,6 @@ label {
     color: #2e3436;
 }
 
-.button, button {
-    background: transparent url("../images/button.png");
-    border: none;
-    width: 100px;
-    height: 38px;
-    cursor: pointer;
-}
-
 body { 
     background: #cf5b13;
     color: white;
@@ -108,6 +100,13 @@ body {
         }
         #wrapper #top input{
             display:block;
+        }
+        #wrapper #top .button {
+            background: transparent url("../images/button.png");
+            border: none;
+            width: 100px;
+            height: 38px;
+            cursor: pointer;
         }
     
     #wrapper #content {
