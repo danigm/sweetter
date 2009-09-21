@@ -130,8 +130,11 @@ body {
         color: #000;
         background: #ef9b43;
         border: 1px solid #000;
+        padding-bottom: 15px;
     }
-
+    #wrapper #sidebar input{
+        width:90%;
+    }
     #wrapper #clear {
         clear: both;
     }
