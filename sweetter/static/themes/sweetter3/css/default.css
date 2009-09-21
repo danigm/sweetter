@@ -71,7 +71,7 @@ body {
 
 #wrapper-bottom {
     background: transparent url("../images/body-tail.png") no-repeat;
-    height: 129px;
+    height: 20px;
     margin: 0 auto 0 auto;
     width: 970px;
     padding-left: 10px;
@@ -93,10 +93,10 @@ body {
 }
 
     #wrapper #top {
-        padding: 40px;
+        padding: 10px 10px 10px 40px;
     }
         #wrapper #top textarea{
-            width:600px;
+            width:590px;
             border: 2px solid #888888;
             font-size: xx-large;
         }
@@ -125,8 +125,11 @@ body {
         
     #wrapper #sidebar{
         float:left;
-        width:300px;
-        color: #888888;
+        padding-left:15px;
+        width:260px;
+        color: #000;
+        background: #ef9b43;
+        border: 1px solid #000;
     }
 
     #wrapper #clear {
