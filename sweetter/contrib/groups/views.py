@@ -39,7 +39,7 @@ def messages(request,group_name):
     q = Q()
     for user_temp in g.users.all():
         q = q | Q(user = user_temp.user)
-    latest_post_list = Post.objects.filter(q)
+    latest_post_list = Post.objects.filter(q).order_by('-pub_date')
     paginator = Paginator(latest_post_list, 10) 
 
     try:
