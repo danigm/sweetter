@@ -2,11 +2,9 @@ from decimal import Decimal
 from sweetter.contrib.followers.models import Follower
 from django.template.loader import render_to_string
 from django.db.models import Q
+from sweetter.ublogging.api import Plugin
 
-class FollowingList:      
-    def __init__(self):
-        pass
-        
+class FollowingList(Plugin):      
     def sidebar(self, context):
         if context['perms'].user and not context['perms'].user.is_authenticated():
             return ''
@@ -26,23 +24,8 @@ class FollowingList:
         except:
             image = u'follow'
         return render_to_string('follow.html', {'user': post.user, 'image':image}, context_instance=context)
-        
-    def parse(self, value):
-        return value
-        
-    def post_list(self, value, request, user_name):
-        return value
-    
-    def posting(self, request):
-        return False
-    
-    def posted(self, request, post):
-        pass
 
-class FollowerList:      
-    def __init__(self):
-        pass
-        
+class FollowerList(Plugin):      
     def sidebar(self, context):
         if context['perms'].user and not context['perms'].user.is_authenticated():
             return ''
@@ -53,17 +36,5 @@ class FollowerList:
                 return ''
             return render_to_string('follower.html', { 'followers': f_list }, context_instance=context)
                 
-    def tools(self, context, post):
-        return ''
-        
-    def parse(self, value):
-        return value
-        
     def post_list(self, value, request, user_name):
         return value | Q(user__in = Follower.objects.filter(follower=request.user).values('user'))
-
-    def posting(self, request):
-        return False
-    
-    def posted(self, request, post):
-        pass

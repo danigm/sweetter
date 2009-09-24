@@ -3,14 +3,11 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.template.loader import render_to_string
 from sweetter.ublogging.models import Post
 from django.core.urlresolvers import reverse
+from sweetter.ublogging.api import Plugin
 
 import re
 
-class UserForm:
-
-    def __init__(self):
-        pass
-        
+class UserForm(Plugin):
     def sidebar(self, context):
         if context['perms'].user and not context['perms'].user.is_authenticated():
             form = AuthenticationForm(context['request'].POST) # A form bound to the POST data
@@ -33,9 +30,6 @@ class UserForm:
                     'user':context['perms'].user
                 }, context_instance=context)
                 
-    def tools(self, context, post):
-        return ''
-
     def parse(self, value):
         regex = re.compile("[:punct:]*(@[A-Za-z_\-\d]*)[:punct:]*")
         matches = re.finditer(regex, value)
@@ -47,12 +41,3 @@ class UserForm:
                 text = match.expand('<a href=\"'+url+'">\\1</a>')
                 value = value.replace(value[match.start():match.end()], text)
         return value
-        
-    def post_list(self, value, request, user_name):
-        return value
-
-    def posting(self, request):
-        return False
-    
-    def posted(self, request, post):
-        pass
