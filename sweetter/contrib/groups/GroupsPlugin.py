@@ -22,3 +22,9 @@ class GroupHooks:
         
     def post_list(self, value, request, user_name):
         return value
+
+    def posting(self, request):
+        return False
+    
+    def posted(self, request, post):
+        pass

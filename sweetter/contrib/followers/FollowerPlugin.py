@@ -32,6 +32,12 @@ class FollowingList:
         
     def post_list(self, value, request, user_name):
         return value
+    
+    def posting(self, request):
+        return False
+    
+    def posted(self, request, post):
+        pass
 
 class FollowerList:      
     def __init__(self):
@@ -55,3 +61,9 @@ class FollowerList:
         
     def post_list(self, value, request, user_name):
         return value | Q(user__in = Follower.objects.filter(follower=request.user).values('user'))
+
+    def posting(self, request):
+        return False
+    
+    def posted(self, request, post):
+        pass

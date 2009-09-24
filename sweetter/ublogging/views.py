@@ -62,7 +62,19 @@ def show_statuses(request, query):
 def new(request):
     text = request.POST['text']
     post = Post(text=text, user = request.user, pub_date = datetime.datetime.now())
-    post.save()
+    
+    intercepted = False
+    
+    # hook for pluggins for intercepting messages. This can cancel posting them.
+    for p in ublogging.plugins:
+        if not intercepted:
+            intercepted = p.posting(request)
+    
+    if not intercepted:
+        post.save()
+        for p in ublogging.plugins:
+            p.posted(request, post)
+        
     return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
 
 def join(request):
