@@ -107,13 +107,15 @@ INSTALLED_APPS = (
     'sweetter.contrib.groups',
     'sweetter.contrib.karma',
     'sweetter.contrib.followers',
+    'sweetter.contrib.replies',
 )
 
 INSTALLED_PLUGINS = (
     'sweetter.contrib.userform.UserForm.UserForm',
+    'sweetter.contrib.replies.RepliesPlugin.RepliesPlugin',
     'sweetter.contrib.groups.GroupsPlugin.GroupHooks',
     'sweetter.contrib.karma.KarmaPlugin.KarmaCount',
     'sweetter.contrib.followers.FollowerPlugin.FollowingList',
-    'sweetter.contrib.followers.FollowerPlugin.FollowerList'
+    'sweetter.contrib.followers.FollowerPlugin.FollowerList',
 )
 

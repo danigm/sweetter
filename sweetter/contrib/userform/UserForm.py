@@ -29,16 +29,3 @@ class UserForm(Plugin):
             return render_to_string('loggedin.html', {
                     'user':context['perms'].user
                 }, context_instance=context)
-                
-    def parse(self, value):
-        regex = re.compile("[:punct:]*(@[A-Za-z_\-\d]*)[:punct:]*")
-        matches = re.finditer(regex, value)
-        if matches:
-            dict = { }
-            for match in matches:
-                url = reverse('sweetter.ublogging.views.user', args= [value[match.start() + 1:match.end()] ])
-                text = match.expand('<a href=\"'+url+'">\\1</a>')
-                dict[value[match.start() + 1:match.end()]] = text
-            for key in dict:                
-                value = value.replace("@" + key, dict[key])
-        return value

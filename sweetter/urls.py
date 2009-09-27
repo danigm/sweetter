@@ -28,7 +28,8 @@ if settings.DEBUG:
     )
     
 urlpatterns += patterns('',
-    (r'^groups/', include('sweetter.contrib.groups.urls')),    
+    (r'^groups/', include('sweetter.contrib.groups.urls')), 
+    (r'^replies/', include('sweetter.contrib.replies.urls')), 
     (r'^sweetter/vote/(?P<user_id>\d+)/$','sweetter.contrib.karma.views.vote'),
     (r'^sweetter/follow/(?P<user_id>\d+)/$','sweetter.contrib.followers.views.follow'),
    )
