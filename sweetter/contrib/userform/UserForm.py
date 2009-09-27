@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from sweetter.ublogging.api import Plugin
 
 import re
-
+  
 class UserForm(Plugin):
     def sidebar(self, context):
         if context['perms'].user and not context['perms'].user.is_authenticated():
@@ -34,10 +34,11 @@ class UserForm(Plugin):
         regex = re.compile("[:punct:]*(@[A-Za-z_\-\d]*)[:punct:]*")
         matches = re.finditer(regex, value)
         if matches:
+            dict = { }
             for match in matches:
-                # TODO: Fix this.
-                #url = reverse('sweetter.ublogging.views.user', kwargs={'user': value[match.start() + 1:match.end()] })
-                url = '/sweetter/user/' + value[match.start() + 1:match.end()]
+                url = reverse('sweetter.ublogging.views.user', args= [value[match.start() + 1:match.end()] ])
                 text = match.expand('<a href=\"'+url+'">\\1</a>')
-                value = value.replace(value[match.start():match.end()], text)
+                dict[value[match.start() + 1:match.end()]] = text
+            for key in dict:                
+                value = value.replace("@" + key, dict[key])
         return value
