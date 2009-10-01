@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+
+{% block js %}
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/index.js"></script>
+{% endblock %}
+
 {% load sweettags %}
 
 {% block top %}
@@ -6,6 +12,7 @@
 <form action="{% url sweetter.ublogging.views.new %}" method="post">
 	<textarea maxlength="140" name="text" id="text"></textarea>
     <span id="counter">140</span>
+    <div id="hc" class="hide">140</div>
 	<input class="button" type="submit" value="Post!" />
 </form>
 {% endif %}

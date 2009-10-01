@@ -11,6 +11,7 @@
     
     <link rel="stylesheet" href="/static/themes/sweetter3/css/default.css" />
     {% block css %} {% endblock %}
+    {% block js %} {% endblock %}
   </head>
   <body>
     <div id="principal">
@@ -19,6 +20,7 @@
         </div>
         <div id="wrapper-top"></div>
         <div id="wrapper">
+            &nbsp;
             <div id="links">
                 <ul>
                     <li><a href="{% url sweetter.ublogging.views.index %}">Index</a></li>
