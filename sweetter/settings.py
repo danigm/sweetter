@@ -119,3 +119,8 @@ INSTALLED_PLUGINS = (
     'sweetter.contrib.followers.FollowerPlugin.FollowerList',
 )
 
+
+# Jabberbot
+
+JB_USER = ""
+JB_PASSWD = ""
