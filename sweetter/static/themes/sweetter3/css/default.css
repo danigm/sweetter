@@ -126,7 +126,9 @@ body {
         
     #wrapper #sidebar{
         float:left;
-        width:300px;
+        width:250px;
+        padding-left: 10px;
+        border-left: 2px dashed #888888;
         color: #888888;
     }
 
