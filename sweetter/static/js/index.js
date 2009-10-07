@@ -4,6 +4,15 @@ $(document).ready(function() {
      var max = $("#hc")[0].innerHTML;
      updateStatusTextCharCounter(input, max);
  });
+
+ $(".sweet").hover(function(){
+        $(this).css("background-color", "#ffffff");
+        $(this).find(".tools").show();
+    },
+    function(){
+        $(this).css("background-color", "#f7f7f7");
+        $(this).find(".tools").fadeOut();
+ });
 });
 
 function updateStatusTextCharCounter(value, max) {

@@ -154,8 +154,14 @@ body {
 }
     .sweet div {
     }
+    
+    .sweet .sweet-text{
+        width: 500px;
+    }
+
     .sweet div.tools {
         float:right;
+        display: none;
     }
         .sweet div.tools a img{
             border:0px;
@@ -203,4 +209,8 @@ body {
 
 .hide {
     display: none;
+}
+
+img {
+    border: 0px;
 }
