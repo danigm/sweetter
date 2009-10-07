@@ -20,7 +20,7 @@ label {
     color: #2e3436;
 }
 
-.button, button {
+.button {
     background: transparent url("../images/button.png");
     border: none;
     width: 100px;
