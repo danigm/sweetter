@@ -10,7 +10,7 @@ $(document).ready(function() {
         $(this).find(".tools").show();
     },
     function(){
-        $(this).css("background-color", "#f7f7f7");
+        $(this).css("background-color", "transparent");
         $(this).find(".tools").fadeOut();
  });
 });
