@@ -11,7 +11,7 @@ $(document).ready(function() {
     },
     function(){
         $(this).css("background-color", "transparent");
-        $(this).find(".tools").fadeOut();
+        $(this).find(".tools").hide();
  });
 });
 

@@ -91,6 +91,7 @@ TEMPLATE_DIRS = (
     'contrib.groups.templates',
     'contrib.karma.templates',
     'contrib.followers.templates'
+    'contrib.replies.templates'
 )
 
 INSTALLED_APPS = (
