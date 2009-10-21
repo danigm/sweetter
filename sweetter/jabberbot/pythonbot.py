@@ -24,6 +24,7 @@ class SystemInfoJabberBot(JabberBot):
 
     Aquí una lista de comandos soportados (usa help <comando>
     para mostrar la ayuda de un comando concreto):
+
     '''
 
     def unknown_command( self, mess, cmd, args):
