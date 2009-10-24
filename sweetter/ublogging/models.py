@@ -7,6 +7,18 @@ class Profile(models.Model):
     
     def __unicode__(self):
         return self.user.username
+
+class Option(models.Model):
+    optid = models.CharField(max_length=20)
+    data = models.TextField()
+    #type could be:
+    #   int, str, password, bool
+    type = models.CharField(max_length=20)
+    user = models.ForeignKey(User)
+    unique_together = ("optid", "user")
+
+    def __unicode__(self):
+        return '<%s, %s, %s>' % (self.user.username, self.optid, self.data)
         
 class Post(models.Model):
     user = models.ForeignKey(User)

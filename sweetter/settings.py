@@ -109,6 +109,8 @@ INSTALLED_APPS = (
     'sweetter.contrib.karma',
     'sweetter.contrib.followers',
     'sweetter.contrib.replies',
+
+    'sweetter.jabberbot',
 )
 
 INSTALLED_PLUGINS = (
@@ -118,6 +120,7 @@ INSTALLED_PLUGINS = (
     'sweetter.contrib.karma.KarmaPlugin.KarmaCount',
     'sweetter.contrib.followers.FollowerPlugin.FollowingList',
     'sweetter.contrib.followers.FollowerPlugin.FollowerList',
+    'sweetter.jabberbot.jabberplugin.JabberPlugin',
 )
 
 

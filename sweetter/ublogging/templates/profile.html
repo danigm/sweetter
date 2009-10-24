@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block top %}
+    <h1>User Preferences</h1>
+    <div class="flash">
+        {{ flash }}
+    </div>
+{% endblock top %}
+
+{% block content %}
+    <form action="{% url sweetter.ublogging.views.profile %}" method="post">
+
+        {% for key, opts in options.items %}
+            <fieldset>
+            <legend>{{ key }}</legend>
+            {% for opt in opts %}
+                {{ opt.html|safe }}
+            {% endfor %}
+            </fieldset>
+        {% endfor %}
+
+        <input class="button" type="submit" value="Save" />
+
+    </form>
+{% endblock content %}

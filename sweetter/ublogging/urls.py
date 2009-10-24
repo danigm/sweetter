@@ -5,4 +5,5 @@ urlpatterns = patterns('sweetter.ublogging.views',
     (r'public_timeline', 'public_timeline'),
 	(r'status/new', 'new'),
     (r'user/(?P<user_name>.*)$','user'),	
+    (r'profile','profile'),	
 )

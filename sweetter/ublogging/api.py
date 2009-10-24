@@ -1,3 +1,5 @@
+from models import Option, User
+
 '''
 Api for use in sweetter plugins to provide default behavior for all
 the hooks the sweetter core calls
@@ -94,4 +96,74 @@ class Plugin:
         '''
 
         pass
+
+class PluginOpt:
+    '''
+    Define an user option to use in plugins. Each Option defined as
+    attribute of a Plugin class is showed in profile page and could be
+    changed and stored.
+    '''
+    
+    def __init__(self, id, type="str", default=""):
+        self.id = id
+        self.type = type
+        self.default = default
+        self.html = ""
+
+    def get(self, username):
+        u = User.objects.get(username = username)
+        opt = Option.objects.get(optid=self.id, user=u)
+        return opt
+
+    def get_value(self, username):
+        try:
+            opt = self.get(username)
+            if self.type == 'bool':
+                return bool(int(opt.data))
+            return opt.data
+        except:
+            return self.default
+
+    def set(self, value, username):
+        if self.type == 'bool':
+            if value:
+                value = '1'
+            else:
+                value = '0'
+
+        try:
+            opt = self.get(username)
+            opt.data = value
+        except:
+            u = User.objects.get(username = username)
+            opt = Option(optid=self.id, data=value, type=self.type, user=u)
+        finally:
+            opt.save()
+
+    def render_html(self, request):
+        if self.type in ['str', 'int']:
+            type = "text"
+        elif self.type == 'password':
+            type = "password"
+        elif self.type == 'bool':
+            type = "checkbox"
+
+        value = self.get_value(request.user.username)
+
+        self.html = """
+
+        <label for="%(id)s">%(label)s:</label>
+        <input type="%(type)s" id="%(id)s" name="%(id)s"
+        value="%(value)s"
+
+        """ % {'id': self.id,
+               'label': self.id,
+               'type': type,
+                'value': value,
+               }
+
+        if self.type == 'bool' and value:
+            self.html += 'checked="checked"'
+
+        self.html += '/>'
 

@@ -6,6 +6,7 @@ from django.template import RequestContext
 from sweetter.ublogging.models import RegisterUserForm
 from sweetter import ublogging
 from sweetter.ublogging.models import Post, User
+from sweetter.ublogging import api
 from django.db.models import Q
 import datetime
 
@@ -40,6 +41,38 @@ def user(request, user_name):
     u = User.objects.get(username = user_name)
     q = Q(user = u)
     return show_statuses(request, q)
+
+def profile(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+
+    if request.method == 'GET':
+        flash = request.session.get('flash', '')
+        request.session['flash'] = ''
+        opts = {}
+        for p in ublogging.plugins:
+            options = [getattr(p, i) for i in dir(p) if isinstance(getattr(p, i), api.PluginOpt)]
+            if options:
+                for opt in options:
+                    opt.render_html(request)
+                opts[p.__plugin_name__] = options
+        return render_to_response('profile.html',
+                {'options': opts, 'flash': flash}, 
+                context_instance=RequestContext(request))
+    else:
+        for p in ublogging.plugins:
+            options = [getattr(p, i) for i in dir(p) if isinstance(getattr(p, i), api.PluginOpt)]
+            if options:
+                for opt in options:
+                    try:
+                        v = request.POST[opt.id]
+                        opt.set(v, request.user.username)
+                    except:
+                        # checkbox to false
+                        opt.set(False, request.user.username)
+        
+        request.session['flash'] = "Preferences saved"
+        return HttpResponseRedirect(reverse('sweetter.ublogging.views.profile'))
 
 def show_statuses(request, query):
     latest_post_list = Post.objects.filter(query).order_by('-pub_date')
