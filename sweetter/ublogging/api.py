@@ -115,6 +115,10 @@ class PluginOpt:
         opt = Option.objects.get(optid=self.id, user=u)
         return opt
 
+    def get_filter(self, value):
+        opt = Option.objects.filter(optid=self.id, data=value)
+        return opt
+
     def get_value(self, username):
         try:
             opt = self.get(username)

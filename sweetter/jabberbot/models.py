@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from sweetter.ublogging.models import Post
 
 class Jabber(models.Model):
-    active = models.BooleanField()
+    post = models.ForeignKey(Post)

@@ -1,4 +1,5 @@
 from sweetter.ublogging import api
+from sweetter.jabberbot.models import Jabber
 
 class JabberPlugin(api.Plugin):
     __plugin_name__ = 'jabberbot'
@@ -7,3 +8,10 @@ class JabberPlugin(api.Plugin):
     enabled = api.PluginOpt('jabberbot_enabled',
                             type="bool",
                             default=False)
+    actived = api.PluginOpt('jabberbot_actived',
+                            type="bool",
+                            default=True)
+
+    def posted(self, request, post):
+        j = Jabber(post=post)
+        j.save()

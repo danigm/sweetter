@@ -94,7 +94,11 @@ def show_statuses(request, query):
 
 def new(request):
     text = request.POST['text']
-    post = Post(text=text, user = request.user, pub_date = datetime.datetime.now())
+    new_post(request.user, text, request)
+    return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+
+def new_post(user, text, request):
+    post = Post(text=text, user=user, pub_date=datetime.datetime.now())
     
     intercepted = False
     
@@ -107,8 +111,6 @@ def new(request):
         post.save()
         for p in ublogging.plugins:
             p.posted(request, post)
-        
-    return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
 
 def join(request):
     if request.method == 'POST':

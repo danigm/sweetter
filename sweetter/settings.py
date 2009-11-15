@@ -126,5 +126,5 @@ INSTALLED_PLUGINS = (
 
 # Jabberbot
 
-JB_USER = ""
-JB_PASSWD = ""
+JB_USER = "sbottest@jabberes.org"
+JB_PASSWD = "..."

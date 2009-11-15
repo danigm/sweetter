@@ -2,12 +2,23 @@
 # -*- coding: utf-8 -*-
 import sys
 
-sys.path.append("../..")
 sys.path.append("..")
+sys.path.append(".")
+
+import os
+
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
 
 from jabberbot.jabberbot import JabberBot
+from jabberplugin import JabberPlugin as plugin
+from sweetter.jabberbot.models import Jabber
+from sweetter.ublogging.views import new_post
 import settings
 import datetime
+
+class Request_moc:
+    def __init__(self, user):
+        self.user = user
 
 class SystemInfoJabberBot(JabberBot):
     '''
@@ -34,22 +45,34 @@ class SystemInfoJabberBot(JabberBot):
         'Activa el bot. Uso:\n\ton\n'
         f = mess.getFrom()
         user = f.getNode()+'@'+f.getDomain()
-        print "jabberbot on"
-        #return sweet_utils.jabber_on(user)
+        try:
+            suser = plugin.juser.get_filter(user)[0]
+            plugin.actived.set(True, suser.user.username)
+            return "jabberbot activado"
+        except:
+            return "fallo :("
 
     def bot_off(self, mess, args):
         'Desactiva el bot. Uso:\n\toff\n'
         f = mess.getFrom()
         user = f.getNode()+'@'+f.getDomain()
-        print "jabberbot on"
-        #return sweet_utils.jabber_off(user)
+        try:
+            suser = plugin.juser.get_filter(user)[0]
+            plugin.actived.set(False, suser.user.username)
+            return "jabberbot desactivado"
+        except:
+            return "fallo :("
 
     def bot_post(self, mess, args):
         'Envia un comentario a sweetter. Uso:\n\tpost <comentario>\n'
         f = mess.getFrom()
         user = f.getNode()+'@'+f.getDomain()
-        print "jabberpost", user, args
-        #return sweet_utils.jabber_post(user, args)
+        try:
+            suser = plugin.juser.get_filter(user)[0]
+            request = Request_moc(suser.user)
+            new_post(suser.user, args, request)
+        except:
+            return "fallo :("
 
     def bot_(self, mess, args):
         ' '
@@ -125,16 +148,27 @@ class SystemInfoJabberBot(JabberBot):
     #    user = f.getNode()+'@'+f.getDomain()
     #    return sweet_utils.jabber_location(user, args)
 
-    def send_all(self, lista, comentario):
-        for i in lista:
-            self.send(i, comentario)
+    def send_all(self):
+        comments = Jabber.objects.all()
+        all = plugin.enabled.get_filter(True)
+        
+        for comment in comments:
+            for i in all:
+                if plugin.actived.get_value(i.user.username):
+                    jid = plugin.juser.get_value(i.user.username)
+                    sayed = comment.post.user.username
+                    sayed += ": " + comment.post.text
+                    self.send(jid, sayed)
+            comment.delete()
 
     def idle_proc(self):
         lista = []
-        print "idle proc"
-        #lista = sweet_utils.jabber_authorize()
-        for u in lista:
-            self.conn.Roster.Authorize(u)
+        all = plugin.enabled.get_filter(True)
+        for u in all:
+            jid = plugin.juser.get_value(u.user.username)
+            self.conn.Roster.Authorize(jid)
+
+        self.send_all()
 
 def main():
     bot = SystemInfoJabberBot(settings.JB_USER, settings.JB_PASSWD)
