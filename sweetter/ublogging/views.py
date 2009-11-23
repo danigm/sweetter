@@ -134,3 +134,10 @@ def join(request):
             'form': form,
         }, context_instance=RequestContext(request))
     
+
+from django.contrib.auth import logout as djlogout
+
+def logout(request):
+    djlogout(request)
+    return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+

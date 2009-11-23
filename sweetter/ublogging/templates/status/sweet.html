@@ -11,7 +11,7 @@
     </div>
     <div class="sweet-text">
         <span class="username"><a href="{% url sweetter.ublogging.views.user post.user.username %}">{{ post.user.username }}</a></span> said: <br/> 
-        <span class="text">{{ post.text|force_escape|parse|safe }}</span>
+        <span class="text">{{ post.text|force_escape|parse|safe|urlizetrunc:31 }}</span>
         <div class="date">{{ post.pub_date|timesince }} ago</div>
     </div>
 

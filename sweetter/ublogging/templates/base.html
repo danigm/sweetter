@@ -23,10 +23,15 @@
             &nbsp;
             <div id="links">
                 <ul>
-                    <li><a href="{% url sweetter.ublogging.views.index %}">Index</a></li>
-                    <li><a href="{% url sweetter.ublogging.views.public_timeline %}">Public Timeline</a></li>
-                    <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
-                    <li><a href="{% url sweetter.ublogging.views.join %}">Register</a></li>
+                    {% if not user.is_authenticated %}
+                        <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+                        <li><a href="{% url sweetter.ublogging.views.join %}">Register</a></li>
+                    {% else %}
+                        <li><a href="{% url sweetter.ublogging.views.index %}">Index</a></li>
+                        <li><a href="{% url sweetter.ublogging.views.public_timeline %}">Public Timeline</a></li>
+                        <li><a href="{% url sweetter.ublogging.views.profile %}">Profile</a></li>
+                        <li><a href="{% url sweetter.ublogging.views.logout %}">Logout</a></li>
+                    {% endif %}
                 </ul>
             </div>
             <div id="top">

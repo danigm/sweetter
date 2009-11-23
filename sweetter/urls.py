@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     (r'^sweetter/', include('sweetter.ublogging.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^login/$','django.contrib.auth.views.login',{'template_name': 'login.html'}),
-    (r'^logout/$','django.contrib.auth.views.logout'),
+    (r'^logout/$','sweetter.ublogging.views.logout'),
     (r'^join/$','sweetter.ublogging.views.join'),
     (r'^$', 'sweetter.ublogging.views.index'),
 )

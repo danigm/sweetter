@@ -17,5 +17,6 @@ def parse_url(text):
 urlParser = Parser()
 urlParser.parse = parse_url
 
-parsers = [urlParser]
+#parsers = [urlParser]
+parsers = []
 
