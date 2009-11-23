@@ -4,12 +4,14 @@ from django.template.defaultfilters import stringfilter
 from sweetter import ublogging
 from sweetter.ublogging.models import Post
 
+import textparsers
+
 register = template.Library()
 
 @register.filter
 @stringfilter
 def parse(value):
-    for p in ublogging.plugins:
+    for p in ublogging.plugins + textparsers.parsers:
         value = p.parse(value)
     return value
 
