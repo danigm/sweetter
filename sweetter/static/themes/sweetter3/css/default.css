@@ -9,14 +9,14 @@
 
 input { 
     border: 2px solid #888888;
-    font-size: xx-large;
+    font-size: x-large;
     color: #2e3436; 
     max-width: 250px;
     display: block;
 }
 
 label { 
-    font-size: xx-large;
+    font-size: x-large;
     color: #2e3436;
 }
 
