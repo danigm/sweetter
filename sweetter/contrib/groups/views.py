@@ -7,8 +7,10 @@ from django.contrib.auth.forms import UserCreationForm
 from sweetter.ublogging.models import Post, User, Profile
 from sweetter.contrib.groups.models import Group
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 import datetime
 
+@login_required
 def detail(request,object_id):
     g = Group.objects.get(id=object_id)
     if g.users.filter(user=request.user):
@@ -19,6 +21,7 @@ def detail(request,object_id):
             'object': g, 'join_message':join_message
         }, context_instance=RequestContext(request))
         
+@login_required
 def join(request,group_name):
     g = Group.objects.get(name=group_name)
     try:

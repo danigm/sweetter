@@ -6,7 +6,9 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.db.models import Q
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def replies(request, user_name = None):
     if user_name is None:
         user_name = request.user.username

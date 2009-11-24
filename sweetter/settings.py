@@ -58,6 +58,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n', 
     'django.core.context_processors.media',
     'django.core.context_processors.request',
+    'sweetter.flash.context_processor',
 )
 
 INTERNAL_IPS = ('127.0.0.1', )
@@ -123,8 +124,30 @@ INSTALLED_PLUGINS = (
     'sweetter.jabberbot.jabberplugin.JabberPlugin',
 )
 
+LOGIN_URL = "/login"
 
 # Jabberbot
 
 JB_USER = "sbottest@jabberes.org"
 JB_PASSWD = "..."
+
+# email config
+    
+MSG_FROM = "terron@sweetter.net"
+CONFIRMATION_MSG = """
+Swetter 3.0 validation
+======================
+
+Hi %(username)s!
+
+This email account is registered in sweetter 3.0, if you don't
+register in that web service you can ignore that.
+
+To validate your account follow this link:
+
+http://sweetter.net/sweetter/validate/%(apikey)s
+
+--
+sweetter team
+
+"""

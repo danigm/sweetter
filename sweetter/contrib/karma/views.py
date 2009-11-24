@@ -2,7 +2,9 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from sweetter.contrib.karma.models import Karma
 from sweetter.ublogging.models import Post, User
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def vote(request,user_id):
     u=User.objects.get(id=user_id)
     sum = float(request.POST['vote'])

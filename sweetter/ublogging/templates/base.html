@@ -34,8 +34,16 @@
                     {% endif %}
                 </ul>
             </div>
+
             <div id="top">
                 {% block top %} {% endblock %}
+                {% if flash %}
+                    {% if flash.is_error %}
+                        <div class="flash error">{{ flash.msg }}</div>
+                    {% else %}
+                        <div class="flash info">{{ flash.msg }}</div>
+                    {% endif %}
+                {% endif %}
             </div>
             <div id="content">
                 {% block content %}  {% endblock %}

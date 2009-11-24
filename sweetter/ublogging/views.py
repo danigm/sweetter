@@ -7,10 +7,16 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from sweetter.ublogging.models import RegisterUserForm
 from sweetter import ublogging
-from sweetter.ublogging.models import Post, User
+from sweetter.ublogging.models import Post, User, Profile
 from sweetter.ublogging import api
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from sweetter import flash
 import datetime
+
+import register
+join = register.join
+validate = register.validate
 
 def public_timeline(request):
     latest_post_list = Post.objects.all().order_by('-pub_date')
@@ -45,12 +51,7 @@ def user(request, user_name):
     return show_statuses(request, q)
 
 def profile(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
-
     if request.method == 'GET':
-        flash = request.session.get('flash', '')
-        request.session['flash'] = ''
         opts = {}
         for p in ublogging.plugins:
             options = [getattr(p, i) for i in dir(p) if isinstance(getattr(p, i), api.PluginOpt)]
@@ -59,7 +60,7 @@ def profile(request):
                     opt.render_html(request)
                 opts[p.__plugin_name__] = options
         return render_to_response('profile.html',
-                {'options': opts, 'flash': flash}, 
+                {'options': opts}, 
                 context_instance=RequestContext(request))
     else:
         for p in ublogging.plugins:
@@ -73,7 +74,7 @@ def profile(request):
                         # checkbox to false
                         opt.set(False, request.user.username)
         
-        request.session['flash'] = "Preferences saved"
+        flash.set_flash(request, "Preferences saved")
         return HttpResponseRedirect(reverse('sweetter.ublogging.views.profile'))
 
 def show_statuses(request, query):
@@ -94,6 +95,7 @@ def show_statuses(request, query):
             'latest_post_list': latest_post_list
         }, context_instance=RequestContext(request))
 
+@login_required
 def new(request):
     text = request.POST['text']
     new_post(request.user, text, request)
@@ -114,28 +116,7 @@ def new_post(user, text, request):
         for p in ublogging.plugins:
             p.posted(request, post)
 
-def join(request):
-    if request.method == 'POST':
-        form = RegisterUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            errormessage = "Gracias por registrarte"
-            form = RegisterUserForm()
-            return render_to_response('join.html', {
-                'error_message': errormessage,
-                'form': form,
-            }, context_instance=RequestContext(request))
-        else:
-            return render_to_response('join.html', {
-                'error_message': "Error de validacion",
-                'form': form
-            }, context_instance=RequestContext(request))
-    else:
-        form = RegisterUserForm()
-        return render_to_response('join.html', {
-            'form': form,
-        }, context_instance=RequestContext(request))
-
+@login_required
 def logout(request):
     djlogout(request)
     return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
@@ -160,3 +141,4 @@ def refresh_index(request, lastid):
         return HttpResponse(data)
     else:
         return HttpResponse("")
+
