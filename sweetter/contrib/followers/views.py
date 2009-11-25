@@ -14,4 +14,4 @@ def follow(request,user_id):
     else:
         f=Follower(user = u, follower = request.user)
         f.save()
-    return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])

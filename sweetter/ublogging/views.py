@@ -48,7 +48,7 @@ def index(request):
 def user(request, user_name):
     u = User.objects.get(username = user_name)
     q = Q(user = u)
-    return show_statuses(request, q)
+    return show_statuses(request, q, u)
 
 def profile(request):
     if request.method == 'GET':
@@ -77,7 +77,7 @@ def profile(request):
         flash.set_flash(request, "Preferences saved")
         return HttpResponseRedirect(reverse('sweetter.ublogging.views.profile'))
 
-def show_statuses(request, query):
+def show_statuses(request, query, user=None):
     latest_post_list = Post.objects.filter(query).order_by('-pub_date')
     paginator = Paginator(latest_post_list, 10) 
 
@@ -92,14 +92,16 @@ def show_statuses(request, query):
         latest_post_list = paginator.page(paginator.num_pages)
     
     return render_to_response('status/index.html', {
-            'latest_post_list': latest_post_list
+            'latest_post_list': latest_post_list,
+            'viewing_user': user,
         }, context_instance=RequestContext(request))
 
 @login_required
 def new(request):
     text = request.POST['text']
     new_post(request.user, text, request)
-    return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    #return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
 
 def new_post(user, text, request):
     post = Post(text=text, user=user, pub_date=datetime.datetime.now())

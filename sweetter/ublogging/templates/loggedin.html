@@ -1,13 +1,21 @@
 {% load sweettags %}
 
 <div class="profile">
-    <div class="avatar">
-        <img src="{% gravatar user.email %}" alt="{{ user.username }}" title="{{ user.username }}"/>
-    </div>
-    <div class="text">
-        <h2><a href="{% url sweetter.ublogging.views.user user.username %}">{{user.username}}</a></h2>
-    </div>
-    <div>
-        <a href="{% url sweetter.ublogging.views.logout %}">Logout</a>
-    </div>
+    {% if viewing_user %}
+        <div class="avatar">
+            <img src="{% gravatar viewing_user.email 80 %}" alt="{{ viewing_user.username }}" title="{{ viewing_user.username }}"/>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="text">
+            <h2><a href="{% url sweetter.ublogging.views.user viewing_user.username %}">{{viewing_user.username}}</a></h2>
+        </div>
+    {% else %}
+        <div class="avatar">
+            <img src="{% gravatar user.email 80 %}" alt="{{ user.username }}" title="{{ user.username }}"/>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="text">
+            <h2><a href="{% url sweetter.ublogging.views.user user.username %}">{{user.username}}</a></h2>
+        </div>
+    {% endif %}
 </div>

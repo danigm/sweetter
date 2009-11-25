@@ -10,10 +10,14 @@ class KarmaCount(Plugin):
         if context['perms'].user and not context['perms'].user.is_authenticated():
             return ''
         else:
+            if context.get('viewing_user', ''):
+                user = context['viewing_user']
+            else:
+                user = context['perms'].user
             try:
-                k = Karma.objects.get(user=context['perms'].user)
+                k = Karma.objects.get(user=user)
             except:
-                k=Karma(user=context['perms'].user,value=0)
+                k=Karma(user=user,value=0)
                 k.save()
             karma_ranking = Karma.objects.all().order_by('-value')[:5]
             return render_to_string('karmasidebar.html', 

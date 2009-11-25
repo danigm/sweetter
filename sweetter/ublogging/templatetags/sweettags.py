@@ -39,6 +39,7 @@ def do_sidebar(parser, token):
 class SidebarNode(template.Node):
     def __init__(self):
         self.user = template.Variable('user')
+        self.viewing_user = template.Variable('viewing_user')
         self.request = template.Variable('request')
         
     def render(self, context):
