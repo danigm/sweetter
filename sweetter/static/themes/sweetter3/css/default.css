@@ -227,3 +227,15 @@ img {
 .error { background-color: #a00000; color: white;}
 .info { background-color: #018900; color: white;}
 
+
+a {
+    color: #cf5b13;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #2e3436;
+    text-decoration: underline;
+    font-weight: bold;
+}

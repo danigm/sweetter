@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from sweetter.ublogging.models import RegisterUserForm
-from sweetter.ublogging.models import Profile
+from sweetter.ublogging.models import Profile, User
 from sweetter import flash
 from django.core.mail import send_mail
 import settings
@@ -57,3 +57,13 @@ def validate(request, apikey):
 
     return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
 
+def adduser(username, password, email):
+    u = User(username=username, email=email)
+    u.set_password(password)
+    u.is_active = True
+    u.save()
+
+    profile, new = Profile.objects.get_or_create(user=u)
+    profile.save()
+
+    return u
