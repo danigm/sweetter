@@ -1,5 +1,7 @@
 <div style="karma">
-<h2>Karma: {{ karma.value|floatformat:2 }}<h2>
+{% if karma %}
+    <h2>Karma: {{ karma.value|floatformat:2 }}<h2>
+{% endif %}
 </div>
 <div style="karma_ranking">
 <h3>Karma ranking:</h3>

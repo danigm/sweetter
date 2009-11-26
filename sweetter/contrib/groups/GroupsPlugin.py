@@ -4,7 +4,7 @@ from sweetter.ublogging.api import Plugin
 
 class GroupHooks(Plugin):
     def sidebar(self, context):
-        if context['perms'].user and not context['perms'].user.is_authenticated():
+        if not context.get('viewing_user','') and context['perms'].user and not context['perms'].user.is_authenticated():
             return ''
         else:
             if context.get('viewing_user', ''):

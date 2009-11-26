@@ -144,7 +144,7 @@ class PluginOpt:
         finally:
             opt.save()
 
-    def render_html(self, request):
+    def get_html_type(self):
         if self.type in ['str', 'int']:
             type = "text"
         elif self.type == 'password':
@@ -152,22 +152,8 @@ class PluginOpt:
         elif self.type == 'bool':
             type = "checkbox"
 
-        value = self.get_value(request.user.username)
+        return type
 
-        self.html = """
-
-        <label for="%(id)s">%(label)s:</label>
-        <input type="%(type)s" id="%(id)s" name="%(id)s"
-        value="%(value)s"
-
-        """ % {'id': self.id,
-               'label': self.id,
-               'type': type,
-                'value': value,
-               }
-
-        if self.type == 'bool' and value:
-            self.html += 'checked="checked"'
-
-        self.html += '/>'
+    def get_html_value(self, request):
+        return self.get_value(request.user.username)
 

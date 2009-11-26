@@ -18,6 +18,9 @@ import register
 join = register.join
 validate = register.validate
 
+from profile import profile
+from profile import renewapikey
+
 def public_timeline(request):
     latest_post_list = Post.objects.all().order_by('-pub_date')
     paginator = Paginator(latest_post_list, 10) 
@@ -50,33 +53,6 @@ def user(request, user_name):
     q = Q(user = u)
     return show_statuses(request, q, u)
 
-def profile(request):
-    if request.method == 'GET':
-        opts = {}
-        for p in ublogging.plugins:
-            options = [getattr(p, i) for i in dir(p) if isinstance(getattr(p, i), api.PluginOpt)]
-            if options:
-                for opt in options:
-                    opt.render_html(request)
-                opts[p.__plugin_name__] = options
-        return render_to_response('profile.html',
-                {'options': opts}, 
-                context_instance=RequestContext(request))
-    else:
-        for p in ublogging.plugins:
-            options = [getattr(p, i) for i in dir(p) if isinstance(getattr(p, i), api.PluginOpt)]
-            if options:
-                for opt in options:
-                    try:
-                        v = request.POST[opt.id]
-                        opt.set(v, request.user.username)
-                    except:
-                        # checkbox to false
-                        opt.set(False, request.user.username)
-        
-        flash.set_flash(request, "Preferences saved")
-        return HttpResponseRedirect(reverse('sweetter.ublogging.views.profile'))
-
 def show_statuses(request, query, user=None):
     latest_post_list = Post.objects.filter(query).order_by('-pub_date')
     paginator = Paginator(latest_post_list, 10) 
@@ -90,10 +66,16 @@ def show_statuses(request, query, user=None):
         latest_post_list = paginator.page(page)
     except (EmptyPage, InvalidPage):
         latest_post_list = paginator.page(paginator.num_pages)
+
+    if user:
+        profile = Profile.objects.get(user=user)
+    else:
+        profile = None
     
     return render_to_response('status/index.html', {
             'latest_post_list': latest_post_list,
             'viewing_user': user,
+            'viewing_profile': profile,
         }, context_instance=RequestContext(request))
 
 @login_required

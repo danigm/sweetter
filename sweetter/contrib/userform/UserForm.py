@@ -9,7 +9,7 @@ import re
   
 class UserForm(Plugin):
     def sidebar(self, context):
-        if context['perms'].user and not context['perms'].user.is_authenticated():
+        if not context.get('viewing_user','') and context['perms'].user and not context['perms'].user.is_authenticated():
             form = AuthenticationForm(context['request'].POST) # A form bound to the POST data
             if form.is_valid(): # All validation rules pass
                 user = authenticate(username=form.cleaned_data.username, password=form.cleaned_data.password)

@@ -6,13 +6,44 @@
 
 {% block content %}
     <form action="{% url sweetter.ublogging.views.profile %}" method="post">
+        <fieldset>
+        <legend>Sweetter 3.0 options</legend>
+        
+            <label for="apikey">Apikey:</label>
+            <div id="apikey">
+                {{apikey}}
+                <a href="renewapikey">renew apikey</a>
+            </div>
+
+            <label for="email">email:</label>
+            <input type="text" id="email" name="email" value="{{user.email}}"/>
+
+            <label for="url">url:</label>
+            <input type="text" id="url" name="url" value="{{user_profile.url}}"/>
+
+            <label for="location">location:</label>
+            <input type="text" id="location" name="location" value="{{user_profile.location}}"/>
+
+        </fieldset>
 
         {% for key, opts in options.items %}
             <fieldset>
             <legend>{{ key }}</legend>
-            {% for opt in opts %}
-                {{ opt.html|safe }}
-            {% endfor %}
+
+                {% for opt in opts %}
+                    <label for="{{opt.id}}">{{opt.label}}:</label>
+                    <input type="{{opt.type}}" id="{{opt.id}}" 
+                           name="{{opt.id}}" value="{{opt.value}}"
+
+                    {% ifequal opt.type "checkbox" %}
+                        {% if opt.value %}
+                            checked="checked"
+                        {% endif %}
+                    {% endifequal %}
+
+                    />
+                {% endfor %}
+
             </fieldset>
         {% endfor %}
 

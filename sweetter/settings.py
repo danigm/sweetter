@@ -59,6 +59,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.request',
     'sweetter.flash.context_processor',
+    'sweetter.ublogging.contexts.profile',
 )
 
 INTERNAL_IPS = ('127.0.0.1', )

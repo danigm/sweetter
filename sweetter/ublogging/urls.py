@@ -8,4 +8,5 @@ urlpatterns = patterns('sweetter.ublogging.views',
     (r'refresh/(\d+)$', 'refresh_index'),
     (r'validate/(\w+)$', 'validate'),
     (r'profile','profile'),	
+    (r'renewapikey','renewapikey'),	
 )

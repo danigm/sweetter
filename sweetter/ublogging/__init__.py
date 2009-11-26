@@ -8,3 +8,4 @@ for p in settings.INSTALLED_PLUGINS:
     mod = sys.modules[modname]
     classobj = getattr(mod, clazzname)
     plugins.append(classobj())
+

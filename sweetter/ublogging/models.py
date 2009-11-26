@@ -12,6 +12,8 @@ def generate_apikey():
 class Profile(models.Model):
     user = models.ForeignKey(User, unique=True)
     apikey = models.CharField(max_length=20)
+    url = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)
     
     def __unicode__(self):
         return self.user.username
@@ -19,7 +21,12 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.apikey = generate_apikey()
+            self.location = "sweetter city"
+            self.url = "http://sweetter.net/user/" + self.user.username
         super(Profile, self).save(*args, **kwargs)
+
+    def regen_apikey(self):
+        self.apikey = generate_apikey()
 
 class Option(models.Model):
     optid = models.CharField(max_length=20)
