@@ -8,8 +8,8 @@
         <div style="clear: both;"></div>
         <div class="text">
             <h2><a href="{% url sweetter.ublogging.views.user viewing_user.username %}">{{viewing_user.username}}</a></h2>
-            url: {{viewing_profile.url|urlizetrunc:31}}
-            Location: {{viewing_profile.location}}
+            <div class="url">url: {{viewing_profile.url|urlizetrunc:31}}</div>
+            <div class="location">Location: {{viewing_profile.location}}</div>
         </div>
     {% else %}
         <div class="avatar">
@@ -18,8 +18,8 @@
         <div style="clear: both;"></div>
         <div class="text">
             <h2><a href="{% url sweetter.ublogging.views.user user.username %}">{{user.username}}</a></h2>
-            url: {{viewing_profile.url|urlizetrunc:31}}
-            Location: {{viewing_profile.location}}
+            <div class="url">url: {{user_profile.url|urlizetrunc:31}}</div>
+            <div class="location">Location: {{user_profile.location}}</div>
         </div>
     {% endif %}
 </div>

@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block js %}
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/profile.js"></script>
+{% endblock %}
+
 {% block top %}
     <h1>User Preferences</h1>
 {% endblock top %}
@@ -23,6 +28,12 @@
 
             <label for="location">location:</label>
             <input type="text" id="location" name="location" value="{{user_profile.location}}"/>
+
+            <label for="pw">Password:</label>
+            <input type="password" id="pw" name="pw" value=""/>
+            <label for="pw2">Password confirmation:</label>
+            <input type="password" id="pw2" name="pw2" value=""/>
+            <div id="pw_info"></div>
 
         </fieldset>
 

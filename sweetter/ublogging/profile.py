@@ -40,6 +40,15 @@ def profile(request):
         email = request.POST["email"]
         url = request.POST["url"]
         location = request.POST["location"]
+        pw = request.POST["pw"]
+        pw2 = request.POST["pw2"]
+
+        if pw and pw != pw2:
+            flash.set_flash(request, "Password confirmation fails. Changes not saved", "error")
+            return HttpResponseRedirect(reverse('sweetter.ublogging.views.profile'))
+        elif pw:
+            request.user.set_password(pw)
+            request.user.save()
 
         profile.email = email
         profile.url = url

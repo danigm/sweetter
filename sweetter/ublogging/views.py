@@ -112,17 +112,19 @@ def refresh_public(request, lastid):
     return HttpResponse("")
 
 def refresh_index(request, lastid):
-    lastid = int(lastid)
-    if (request.user.is_authenticated()):
+    # TODO diferenciar entre index, public y user
+    if request.user.is_authenticated():
+        lastid = int(lastid)
         q = Q(user = request.user)
         for p in ublogging.plugins:
             q = p.post_list(q, request, request.user.username)
 
         latest_post_list = Post.objects.filter(q).filter(pk__gt=lastid).order_by('-pub_date')
         paginator = Paginator(latest_post_list, 10)
-        latest_post_list = paginator.page(1).object_list
-        data = serializers.serialize("json", latest_post_list)
-        return HttpResponse(data)
+        latest_post_list = paginator.page(1)
+        return render_to_response('status/refresh.html',
+                                {'latest_post_list': latest_post_list },
+                                context_instance=RequestContext(request))
     else:
         return HttpResponse("")
 

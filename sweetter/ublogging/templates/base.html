@@ -48,6 +48,7 @@
                 {% endif %}
             </div>
             <div id="content">
+                {% block headbar %} {% headbar %} {% endblock %}
                 {% block content %}  {% endblock %}
             </div>
             <div id="sidebar">

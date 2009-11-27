@@ -1,0 +1,10 @@
+{% load sweettags %}
+
+{% if latest_post_list %}
+    <div id="sweets">
+        {% for post in latest_post_list.object_list %}            
+            {% format_sweet post  %}
+        {% endfor %}
+    </div>
+{% endif %}
+

@@ -18,16 +18,22 @@ class FollowingList(Plugin):
             except:
                 return ''
             return render_to_string('following.html', { 'following': f_list }, context_instance=context)
-                
-    def tools(self, context, post):
-        if not context['perms'].user.is_authenticated() or (post.user.username == context['perms'].user.username):
+
+    def headbar(self, context):
+        if not context.get('viewing_user','') or not context['perms'].user or not context['perms'].user.is_authenticated():
             return ''
+
+        user = context['viewing_user']
         try:
-            f = Follower.objects.get(user = post.user, follower = context['perms'].user)
+            f = Follower.objects.get(user=user, follower=context['perms'].user)
+            following = True
             image = u'followno'
         except:
+            following = False
             image = u'follow'
-        return render_to_string('follow.html', {'user': post.user, 'image':image}, context_instance=context)
+        return render_to_string('follow.html',
+                {'user': user, 'image':image, 'following': following},
+                context_instance=context)
 
 class FollowerList(Plugin):      
     def sidebar(self, context):

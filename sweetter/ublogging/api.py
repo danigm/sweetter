@@ -21,6 +21,20 @@ class Plugin:
         '''
 
         pass
+
+    def headbar(self, context):
+        '''
+        Called everytime the headbar is rendered. Return a string with
+        HTML that will be placed above the content. You should use Django
+        templates. 
+        
+        Arguments:
+            context -- contains: user -> the current logged in user if is
+            logged in.
+        '''
+
+        return ''
+    
         
     def sidebar(self, context):
         '''

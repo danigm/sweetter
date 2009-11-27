@@ -6,9 +6,9 @@ from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 
 @login_required
-def follow(request,user_id):
+def follow(request, user_id):
     u=User.objects.get(id=user_id)
-    f = Follower.objects.filter(user = u, follower = request.user)
+    f = Follower.objects.filter(user=u, follower=request.user)
     if f:
         f.delete()
     else:

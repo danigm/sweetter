@@ -1,9 +1,10 @@
 {% load sweettags %}
 
-
-<div class="sweet">
+<div class="sweet" id="{{post.id}}">
     <div class="avatar">
-        <img src="{% gravatar post.user.email %}" alt="{{ post.user.username }}" title="{{ post.user.username }}"/>
+        <a href="{% url sweetter.ublogging.views.user post.user.username %}">
+            <img src="{% gravatar post.user.email %}" alt="{{ post.user.username }}" title="{{ post.user.username }}"/>
+        </a>
     </div>
 
     <div class="tools">

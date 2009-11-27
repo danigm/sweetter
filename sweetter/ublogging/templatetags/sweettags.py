@@ -50,6 +50,32 @@ class SidebarNode(template.Node):
         s = ''.join(p.sidebar(context) for p in ublogging.plugins)    
         return s
 
+@register.tag("headbar")
+def do_headbar(parser, token):
+    try:
+        tag_name = token.split_contents()
+    except ValueError:
+        raise template.TemplateSyntaxError, "%r tag requires no arguments" % token.contents.split()[0]
+    return HeadbarNode()
+
+class HeadbarNode(template.Node):
+    def __init__(self):
+        self.user = template.Variable('user')
+        self.viewing_user = template.Variable('viewing_user')
+        self.request = template.Variable('request')
+        
+    def render(self, context):
+        user = self.user.resolve(context)
+        request = self.request.resolve(context)
+        '''context['user'] = user
+        context['request'] = request'''
+        s1 = ''.join(p.headbar(context) for p in ublogging.plugins)    
+        if s1:
+            s = '<div id="headbar">%s</div>' % s1
+        else:
+            s = ''
+        return s
+
 @register.tag("tools")
 def do_tools(parser, token):
     try:    
