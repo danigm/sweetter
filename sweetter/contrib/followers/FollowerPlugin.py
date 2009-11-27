@@ -23,6 +23,9 @@ class FollowingList(Plugin):
         if not context.get('viewing_user','') or not context['perms'].user or not context['perms'].user.is_authenticated():
             return ''
 
+        if context.get('viewing_user', '') == context['perms'].user:
+            return ''
+
         user = context['viewing_user']
         try:
             f = Follower.objects.get(user=user, follower=context['perms'].user)

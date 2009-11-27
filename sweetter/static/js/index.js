@@ -1,4 +1,4 @@
-var timeout = 30;
+var timeout = 41;
 
 $(document).ready(function() {
  $("#text").keyup(function() {
@@ -36,8 +36,9 @@ function loading(bool){
 function refresh(){
     id = $(".sweet:first").attr("id");
     page = $("#pagenumber").html();
+    refresh_uri = $("#refresh_uri").html().trim();
     loading(true);
-    $.get("/sweetter/refresh/"+id+"/"+page, function(data){
+    $.get(refresh_uri+"/"+id+"/"+page, function(data){
         $("#sweets").prepend(data);
         sweet = $(".sweet:first");
         while(sweet.attr('id') > id){

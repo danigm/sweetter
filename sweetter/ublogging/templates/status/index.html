@@ -49,4 +49,12 @@
     <p>No posts are available.</p>
 {% endif %}
 
+<div class="hide" id="refresh_uri">
+    {% if refresh_uri %}
+        {{refresh_uri}}
+    {% else %}
+        /sweetter/refresh
+    {%endif %}
+</div>
+
 {% endblock content %}

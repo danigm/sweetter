@@ -37,6 +37,8 @@ def index(request, only_list=False):
             q = p.post_list(q, request, request.user.username)
         return show_statuses(request, q, only_list=only_list)
     else:
+        if only_list:
+            return Post.objects.all().order_by('-pub_date')
         return public_timeline(request)
 
 def user(request, user_name, only_list=False):
@@ -103,10 +105,6 @@ def logout(request):
     return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
 
 from django.core import serializers
-
-def refresh_public(request, lastid):
-    latest_post_list = Post.objects.all().order_by('-pub_date')
-    return HttpResponse("")
 
 import re
 def refresh_index(request, lastid, pagenumber):
