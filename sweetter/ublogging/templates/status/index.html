@@ -36,7 +36,8 @@
             {% endif %}
 
             <span class="current">
-                Page {{ latest_post_list.number }} of {{ latest_post_list.paginator.num_pages }}.
+                Page <span id="pagenumber">{{ latest_post_list.number }}</span>
+                of {{ latest_post_list.paginator.num_pages }}.
             </span>
 
             {% if latest_post_list.has_next %}

@@ -11,7 +11,7 @@ $(document).ready(function() {
     text = $("#text").get(0).value;
     $("#text").attr('disabled', 'disabled');
     $("#post_button").attr('disabled', 'disabled');
-    $("#refresh_img").css("display", "block");
+    loading(true);
     $.post("/sweetter/status/new", { text: text },
       function(data){
         refresh();
@@ -26,10 +26,18 @@ $(document).ready(function() {
  shover();
 });
 
+function loading(bool){
+    if (bool)
+        $("#refresh_img").css("display", "block");
+    else
+        $("#refresh_img").css("display", "none");
+}
+
 function refresh(){
     id = $(".sweet:first").attr("id");
-    $("#refresh_img").css("display", "block");
-    $.get("/sweetter/refresh/"+id, function(data){
+    page = $("#pagenumber").html();
+    loading(true);
+    $.get("/sweetter/refresh/"+id+"/"+page, function(data){
         $("#sweets").prepend(data);
         sweet = $(".sweet:first");
         while(sweet.attr('id') > id){
@@ -39,7 +47,7 @@ function refresh(){
             sweet = sweet.next();
         }
 
-        $("#refresh_img").css("display", "none");
+        loading(false);
         shover();
     });
 }

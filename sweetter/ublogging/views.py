@@ -23,49 +23,46 @@ from profile import renewapikey
 
 def public_timeline(request):
     latest_post_list = Post.objects.all().order_by('-pub_date')
-    paginator = Paginator(latest_post_list, 10) 
-
-    try:
-        page = int(request.GET.get('page', '1'))
-    except ValueError:
-        page = 1
-    
-    try:
-        latest_post_list = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-        latest_post_list = paginator.page(paginator.num_pages)
+    latest_post_list = paginate_list(request, latest_post_list)
     
     return render_to_response('status/index.html', {
-            'latest_post_list': latest_post_list
+            'latest_post_list': latest_post_list,
+            'viewing': "public",
         }, context_instance=RequestContext(request))
 
-def index(request):
+def index(request, only_list=False):
     if (request.user.is_authenticated()):
         q = Q(user = request.user)
         for p in ublogging.plugins:
             q = p.post_list(q, request, request.user.username)
-        return show_statuses(request, q)
+        return show_statuses(request, q, only_list=only_list)
     else:
         return public_timeline(request)
 
-def user(request, user_name):
+def user(request, user_name, only_list=False):
     u = User.objects.get(username = user_name)
     q = Q(user = u)
-    return show_statuses(request, q, u)
+    return show_statuses(request, q, u, only_list=only_list)
 
-def show_statuses(request, query, user=None):
-    latest_post_list = Post.objects.filter(query).order_by('-pub_date')
-    paginator = Paginator(latest_post_list, 10) 
+def paginate_list(request, post_list, page=0):
+    paginator = Paginator(post_list, 10) 
 
-    try:
+    if not page:
         page = int(request.GET.get('page', '1'))
-    except ValueError:
-        page = 1
     
     try:
-        latest_post_list = paginator.page(page)
+        post_list = paginator.page(page)
     except (EmptyPage, InvalidPage):
-        latest_post_list = paginator.page(paginator.num_pages)
+        post_list = paginator.page(paginator.num_pages)
+
+    return post_list
+
+def show_statuses(request, query, user=None, only_list=False):
+    latest_post_list = Post.objects.filter(query).order_by('-pub_date')
+    if only_list:
+        return latest_post_list
+
+    latest_post_list = paginate_list(request, latest_post_list)
 
     if user:
         profile = Profile.objects.get(user=user)
@@ -111,17 +108,25 @@ def refresh_public(request, lastid):
     latest_post_list = Post.objects.all().order_by('-pub_date')
     return HttpResponse("")
 
-def refresh_index(request, lastid):
-    # TODO diferenciar entre index, public y user
-    if request.user.is_authenticated():
-        lastid = int(lastid)
-        q = Q(user = request.user)
-        for p in ublogging.plugins:
-            q = p.post_list(q, request, request.user.username)
+import re
+def refresh_index(request, lastid, pagenumber):
+    url = request.META['HTTP_REFERER']
+    usere = r'(.*)/user/(?P<username>[^\?\/]*)'
+    publice = r'(.*)/public_timeline'
 
-        latest_post_list = Post.objects.filter(q).filter(pk__gt=lastid).order_by('-pub_date')
-        paginator = Paginator(latest_post_list, 10)
-        latest_post_list = paginator.page(1)
+    user_timeline = re.match(usere, url)
+    public_timeline = re.match(publice, url)
+    if user_timeline:
+        latest_post_list = user(request, user_timeline.group('username'), only_list=True)
+    elif public_timeline:
+        latest_post_list = Post.objects.all().order_by('-pub_date')
+    else:
+        latest_post_list = index(request, only_list=True)
+
+    latest_post_list = latest_post_list.filter(pk__gt=lastid)
+
+    if latest_post_list:
+        latest_post_list = paginate_list(request, latest_post_list, int(pagenumber))
         return render_to_response('status/refresh.html',
                                 {'latest_post_list': latest_post_list },
                                 context_instance=RequestContext(request))
