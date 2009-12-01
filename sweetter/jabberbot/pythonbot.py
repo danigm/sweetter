@@ -12,13 +12,9 @@ os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
 from jabberbot.jabberbot import JabberBot
 from jabberplugin import JabberPlugin as plugin
 from sweetter.jabberbot.models import Jabber
-from sweetter.ublogging.views import new_post
+from sweetter.ublogging.uapi import new_post, Request_moc
 import settings
 import datetime
-
-class Request_moc:
-    def __init__(self, user):
-        self.user = user
 
 class SystemInfoJabberBot(JabberBot):
     '''

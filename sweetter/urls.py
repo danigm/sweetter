@@ -4,12 +4,20 @@ import settings
 from django.contrib import admin
 admin.autodiscover()
 
+from sweetter.ublogging.feeds import PublicTimeline, UserTimeline
+
+feeds = {
+    'public': PublicTimeline,
+    'user': UserTimeline,
+}
+
 urlpatterns = patterns('',
     (r'^sweetter/', include('sweetter.ublogging.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^login/$','django.contrib.auth.views.login',{'template_name': 'login.html'}),
     (r'^logout/$','sweetter.ublogging.views.logout'),
     (r'^join/$','sweetter.ublogging.views.join'),
+    (r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     (r'^$', 'sweetter.ublogging.views.index'),
 )
 

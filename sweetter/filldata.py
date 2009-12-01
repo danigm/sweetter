@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from sweetter.ublogging.register import adduser
-from sweetter.ublogging.views import new_post
+from sweetter.ublogging.uapi import new_post, Request_moc
 
 users = (
     ('pepe', '123', 'pepe@pepe.com'),
@@ -22,12 +22,8 @@ posts = (
     "arrrrrrrrrrrrrrrrrrrrrrrg",
     )
 
-class request_moc:
-    def __init__(self, user):
-        self.user = user
-
 for i in users:
     u = adduser(*i)
     for p in posts:
-        new_post(u, p, request_moc(u))
+        new_post(u, p, Request_moc(u))
 

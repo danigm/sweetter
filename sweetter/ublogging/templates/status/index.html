@@ -5,6 +5,12 @@
     <script type="text/javascript" src="/static/js/index.js"></script>
 {% endblock %}
 
+{% block feed %}
+    {% if feedurl %}
+        <link href="{{feedurl}}" type="application/rss+xml" rel="alternate" title="feed"/>
+    {% endif %}
+{% endblock %}
+
 {% load sweettags %}
 
 {% block top %}
@@ -25,7 +31,7 @@
 
 {% if latest_post_list %}
     <div id="sweets">
-        {% for post in latest_post_list.object_list %}            
+        {% for post in latest_post_list.object_list %}
             {% format_sweet post  %}
         {% endfor %}
     </div>
@@ -46,7 +52,13 @@
         </span>
     </div>
 {% else %}
+{% if sweet %}
+    <div id="sweets">
+        {% format_sweet sweet %}
+    </div>
+{% else %}
     <p>No posts are available.</p>
+{% endif %}
 {% endif %}
 
 <div class="hide" id="refresh_uri">

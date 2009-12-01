@@ -12,7 +12,8 @@ from sweetter.ublogging import api
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from sweetter import flash
-import datetime
+import uapi
+from uapi import paginate_list
 
 import register
 join = register.join
@@ -21,83 +22,64 @@ validate = register.validate
 from profile import profile
 from profile import renewapikey
 
+def sweet(request, sweetid):
+    sweetid=int(sweetid)
+    try:
+        sweet = Post.objects.get(id=sweetid)
+        user = sweet.user
+        profile = Profile.objects.get(user=user)
+    except:
+        sweet = None
+    return render_to_response('status/index.html', {
+            'latest_post_list': None,
+            'sweet': sweet,
+            'viewing_user': user,
+            'viewing_profile': profile,
+        }, context_instance=RequestContext(request))
+
 def public_timeline(request):
-    latest_post_list = Post.objects.all().order_by('-pub_date')
-    latest_post_list = paginate_list(request, latest_post_list)
+    latest_post_list = uapi.public_timeline(request)
     
     return render_to_response('status/index.html', {
             'latest_post_list': latest_post_list,
+            'feedurl': "/feeds/public", 
             'viewing': "public",
         }, context_instance=RequestContext(request))
 
-def index(request, only_list=False):
-    if (request.user.is_authenticated()):
-        q = Q(user = request.user)
-        for p in ublogging.plugins:
-            q = p.post_list(q, request, request.user.username)
-        return show_statuses(request, q, only_list=only_list)
-    else:
-        if only_list:
-            return Post.objects.all().order_by('-pub_date')
+def index(request):
+    try:
+        latest_post_list = uapi.own_timeline(request)
+    except:
         return public_timeline(request)
 
-def user(request, user_name, only_list=False):
-    u = User.objects.get(username = user_name)
-    q = Q(user = u)
-    return show_statuses(request, q, u, only_list=only_list)
+    return show_statuses(request, latest_post_list)
 
-def paginate_list(request, post_list, page=0):
-    paginator = Paginator(post_list, 10) 
+def user(request, user_name):
+    latest_post_list = uapi.user_timeline(user_name, request)
+    u = User.objects.get(username=user_name)
+    return show_statuses(request, latest_post_list, user=u)
 
-    if not page:
-        page = int(request.GET.get('page', '1'))
-    
-    try:
-        post_list = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-        post_list = paginator.page(paginator.num_pages)
-
-    return post_list
-
-def show_statuses(request, query, user=None, only_list=False):
-    latest_post_list = Post.objects.filter(query).order_by('-pub_date')
-    if only_list:
-        return latest_post_list
-
-    latest_post_list = paginate_list(request, latest_post_list)
-
+def show_statuses(request, latest_post_list, user=None):
     if user:
         profile = Profile.objects.get(user=user)
+        feedurl = "/feeds/user/%s" % user.username
     else:
+        feedurl = "/feeds/user/%s" % request.user.username
         profile = None
     
     return render_to_response('status/index.html', {
             'latest_post_list': latest_post_list,
             'viewing_user': user,
             'viewing_profile': profile,
+            'feedurl': feedurl, 
         }, context_instance=RequestContext(request))
 
 @login_required
 def new(request):
     text = request.POST['text']
-    new_post(request.user, text, request)
+    uapi.new_post(request.user, text, request)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
     #return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
-
-def new_post(user, text, request):
-    post = Post(text=text, user=user, pub_date=datetime.datetime.now())
-    
-    intercepted = False
-    
-    # hook for pluggins for intercepting messages. This can cancel posting them.
-    for p in ublogging.plugins:
-        if not intercepted:
-            intercepted = p.posting(request)
-    
-    if not intercepted:
-        post.save()
-        for p in ublogging.plugins:
-            p.posted(request, post)
 
 @login_required
 def logout(request):
@@ -115,11 +97,14 @@ def refresh_index(request, lastid, pagenumber):
     user_timeline = re.match(usere, url)
     public_timeline = re.match(publice, url)
     if user_timeline:
-        latest_post_list = user(request, user_timeline.group('username'), only_list=True)
+        latest_post_list = uapi.user_timeline(user_timeline.group('username'), request, paginated=False)
     elif public_timeline:
-        latest_post_list = Post.objects.all().order_by('-pub_date')
+        latest_post_list = uapi.public_timeline(request, paginated=False)
     else:
-        latest_post_list = index(request, only_list=True)
+        try:
+            latest_post_list = uapi.own_timeline(request, paginated=False)
+        except:
+            latest_post_list = uapi.public_timeline(request, paginated=False)
 
     latest_post_list = latest_post_list.filter(pk__gt=lastid)
 

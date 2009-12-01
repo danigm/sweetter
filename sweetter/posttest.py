@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import random
-from sweetter.ublogging.views import new_post
 from sweetter.ublogging.models import User
+from sweetter.ublogging.uapi import new_post, Request_moc
 
 posts = (
     "probando sweetter 3.0",
@@ -14,11 +14,7 @@ posts = (
     "arrrrrrrrrrrrrrrrrrrrrrrg",
     )
 
-class request_moc:
-    def __init__(self, user):
-        self.user = user
-
 u = User.objects.get(username = 'culebra')
 p = random.choice(posts)
-new_post(u, p, request_moc(u))
+new_post(u, p, Request_moc(u))
 
