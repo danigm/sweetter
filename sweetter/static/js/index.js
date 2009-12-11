@@ -35,6 +35,9 @@ function loading(bool){
 
 function refresh(){
     id = $(".sweet:first").attr("id");
+    if (!id){
+        id = 0;
+    }
     page = $("#pagenumber").html();
     refresh_uri = $("#refresh_uri").html().trim();
     loading(true);
