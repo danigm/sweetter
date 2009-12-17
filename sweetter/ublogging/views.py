@@ -93,6 +93,7 @@ def refresh_index(request, lastid, pagenumber):
     url = request.META['HTTP_REFERER']
     usere = r'(.*)/user/(?P<username>[^\?\/]*)'
     publice = r'(.*)/public_timeline'
+    lastid=int(lastid)
 
     user_timeline = re.match(usere, url)
     public_timeline = re.match(publice, url)
@@ -106,7 +107,8 @@ def refresh_index(request, lastid, pagenumber):
         except:
             latest_post_list = uapi.public_timeline(request, paginated=False)
 
-    latest_post_list = latest_post_list.filter(pk__gt=lastid)
+    lastpost = Post.objects.filter(pk=lastid)[0]
+    latest_post_list = latest_post_list.filter(pub_date__gt=lastpost.pub_date)
 
     if latest_post_list:
         latest_post_list = paginate_list(request, latest_post_list, int(pagenumber))

@@ -130,6 +130,12 @@ class PluginOpt:
         return opt
 
     def get_filter(self, value):
+        if value == True:
+            value = "1"
+        elif value == False:
+            value = "0"
+
+        value = str(value)
         opt = Option.objects.filter(optid=self.id, data=value)
         return opt
 
