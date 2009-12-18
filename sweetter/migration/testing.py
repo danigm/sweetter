@@ -2,6 +2,8 @@
 
 #export PYTHONPATH=/home/danigm/sweetter3/ export DJANGO_SETTINGS_MODULE=sweetter.settings
 
+from hashlib import md5
+
 import sys
 import os
 os.environ['PYTHONPATH'] = "/home/danigm/sweetter3"
@@ -22,17 +24,18 @@ def main():
 
     users = s2model.User.select()
     for u in users:
-        x = User(username=u.user_name, email=u.email_address, password=generate())
+        x = User(username=u.user_name, email=u.email_address,
+                password_md5=u.password)
         x.save()
-        users_dict[u.username] = x
+        users_dict[u.user_name] = x
 
-        sweets = s2model.Sweets.select(s2model.Sweets.q.userID == x.id)
+        sweets = s2model.Sweets.select(s2model.Sweets.q.userID == u.id)
         for s in sweets:
             post = Post(text=s.comment, user=x, pub_date=s.created)
             post.save()
 
     for u in users:
-        x = users_dict[u.username]
+        x = users_dict[u.user_name]
         followings = s2model.Followers.select(s2model.Followers.q.followerID == u.id)
         for f in followings:
             f1 = Follower(user=users_dict[f.following.user_name], follower=x)

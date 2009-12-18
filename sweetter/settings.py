@@ -91,6 +91,7 @@ TEMPLATE_DIRS = (
 	'templates',    
     # Plugins add their own templates
     'contrib.groups.templates',
+    'contrib.recoverpw.templates',
     'contrib.karma.templates',
     'contrib.followers.templates'
     'contrib.replies.templates'
@@ -108,6 +109,7 @@ INSTALLED_APPS = (
 	'sweetter.ublogging',
     'sweetter.contrib.userform',
     'sweetter.contrib.groups',
+    'sweetter.contrib.recoverpw',
     'sweetter.contrib.karma',
     'sweetter.contrib.followers',
     'sweetter.contrib.replies',
@@ -119,6 +121,7 @@ INSTALLED_PLUGINS = (
     'sweetter.contrib.userform.UserForm.UserForm',
     'sweetter.contrib.replies.RepliesPlugin.RepliesPlugin',
     'sweetter.contrib.groups.GroupsPlugin.GroupHooks',
+    'sweetter.contrib.recoverpw.recoverplugin.Recover',
     'sweetter.contrib.karma.KarmaPlugin.KarmaCount',
     'sweetter.contrib.followers.FollowerPlugin.FollowingList',
     'sweetter.contrib.followers.FollowerPlugin.FollowerList',
@@ -152,3 +155,23 @@ http://sweetter.net/sweetter/validate/%(apikey)s
 sweetter team
 
 """
+
+RECOVERY_MSG = """
+Swetter 3.0 pw recovery
+=======================
+
+Hi %(username)s!
+
+Your receive this email because you are trying to recover your
+sweetter password. If you don't ask for a password recovery then
+ignore that email.
+
+To recover your sweetter password follow this link:
+
+http://sweetter.net/recover/validate/%(key)s
+
+--
+sweetter team
+
+"""
+

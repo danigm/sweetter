@@ -28,6 +28,7 @@ if settings.DEBUG:
     )
     
 urlpatterns += patterns('',
+    (r'^recover/', include('sweetter.contrib.recoverpw.urls')), 
     (r'^groups/', include('sweetter.contrib.groups.urls')), 
     (r'^replies/', include('sweetter.contrib.replies.urls')), 
     (r'^sweetter/vote/(?P<user_id>\d+)/$','sweetter.contrib.karma.views.vote'),

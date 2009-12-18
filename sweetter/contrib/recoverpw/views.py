@@ -1,0 +1,62 @@
+from django.http import HttpResponseRedirect
+from django.http import HttpResponse
+from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from sweetter.ublogging.models import User
+from sweetter.contrib.recoverpw.models import Recover
+from django.core.mail import send_mail
+from sweetter import flash
+import string, random
+import settings
+
+def index(request):
+    if request.method == 'GET':
+        return render_to_response("recover.html", {},
+        context_instance=RequestContext(request))
+
+    username = request.POST['username']
+
+    u = User.objects.filter(username=username)
+    if len(u):
+        u = u[0]
+    else:
+        return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+        
+    r = Recover(user=u)
+    r.save()
+
+    mail = u.email
+    key = r.key
+
+    subject = "sweetter 3.0 password recovery"
+    from_email = settings.MSG_FROM
+    vars = {'username': u.username, 'key': key}
+    message = settings.RECOVERY_MSG % vars
+    
+    to_email = mail
+    send_mail(subject, message, from_email, [to_email], fail_silently=False)
+
+    flash.set_flash(request, "Recovery proccess starts, you'll receive a confirmation email")
+    return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+
+def validate(request, key):
+    k = Recover.objects.filter(key=key)
+    if len(k):
+        k = k[0]
+    else:
+        flash.set_flash(request, "wrong recovery key", "error")
+        return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+
+    u = k.user
+    chars = string.letters+string.digits
+    newp = ''.join([random.choice(chars) for i in range(11)])
+
+    u.set_password(newp)
+    u.save()
+
+    k.delete()
+
+    flash.set_flash(request, "'%s' your new password is '%s', login and change it." % (u.username, newp))
+    return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+
