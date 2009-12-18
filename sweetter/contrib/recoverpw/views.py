@@ -23,7 +23,12 @@ def index(request):
     else:
         return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
         
-    r = Recover(user=u)
+    try:
+        r = Recover.objects.filter(user=u)[0]
+        r.regen_key()
+    except:
+        r = Recover(user=u)
+
     r.save()
 
     mail = u.email

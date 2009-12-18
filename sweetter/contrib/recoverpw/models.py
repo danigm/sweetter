@@ -14,3 +14,6 @@ class Recover(models.Model):
             self.key = generate_apikey()
         super(Recover, self).save(*args, **kwargs)
 
+    def regen_key(self):
+        self.key = generate_apikey()
+
