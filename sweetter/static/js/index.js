@@ -39,7 +39,7 @@ function refresh(){
         id = 0;
     }
     page = $("#pagenumber").html();
-    refresh_uri = $("#refresh_uri").html().trim();
+    refresh_uri = $("#refresh_uri").html();
     loading(true);
     $.get(refresh_uri+"/"+id+"/"+page, function(data){
         $("#sweets").prepend(data);
