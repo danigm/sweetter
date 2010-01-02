@@ -115,7 +115,8 @@ class PluginOpt:
     '''
     Define an user option to use in plugins. Each Option defined as
     attribute of a Plugin class is showed in profile page and could be
-    changed and stored.
+    changed and stored. You should prefix each option with the plugin name.
+	Example: jabberplugin__jabber_account.
     '''
     
     def __init__(self, id, type="str", default=""):

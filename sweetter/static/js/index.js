@@ -59,22 +59,22 @@ function refresh(){
 function updateStatusTextCharCounter(value, max) {
     len = value.length;
     res = max - len;
-    jQuery('#counter').html('' + res);
+    $('#counter').html('' + res);
     if (len > max) {
-        if (jQuery("#new").attr('disabled') != 'disabled') {
-            jQuery('#new').attr('disabled', 'disabled');
+        if ($("#new").attr('disabled') != 'disabled') {
+            $('#new').attr('disabled', 'disabled');
         }   
     } else {
-        if (jQuery("#new").attr('disabled') == true) {
-            jQuery('#new').removeAttr('disabled');
+        if ($("#new").attr('disabled') == true) {
+            $('#new').removeAttr('disabled');
         }   
 
         if (res > 10) {
-            jQuery('#counter').css('color', '#999' );
+            $('#counter').css('color', '#999' );
         } else if (res > 5) {
-            jQuery('#counter').css('color', '#940000' );
+            $('#counter').css('color', '#940000' );
         } else {
-            jQuery('#counter').css('color', '#f00' );
+            $('#counter').css('color', '#f00' );
         }   
     }   
 }
