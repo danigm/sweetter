@@ -21,15 +21,15 @@ class RepliesPlugin(Plugin):
     
     def parse(self, value):
         regex = re.compile("[:punct:]*(@[A-Za-z_\-\d]*)[:punct:]*")
-        matches = re.finditer(regex, value)
+        matches = re.findall(regex, value)
         if matches:
             dict = { }
             for match in matches:
-                url = reverse('sweetter.ublogging.views.user', args= [value[match.start() + 1:match.end()] ])
-                text = match.expand('<a href=\"'+url+'\">\\1</a>')
-                dict[value[match.start() + 1:match.end()]] = text
+                url = reverse('sweetter.ublogging.views.user', args= [match[1:]])
+                text = '<a href="'+url+'">'+match+'</a>'
+                dict[match] = text
             for key in dict:                
-                value = value.replace("@" + key, dict[key])
+                value = value.replace(key, dict[key])
         return value
     
     def post_list(self, value, request, user_name):      
