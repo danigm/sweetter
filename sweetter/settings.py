@@ -113,6 +113,7 @@ INSTALLED_APPS = (
     'sweetter.contrib.karma',
     'sweetter.contrib.followers',
     'sweetter.contrib.replies',
+    'sweetter.contrib.remove',
 
     'sweetter.jabberbot',
 )
@@ -126,6 +127,7 @@ INSTALLED_PLUGINS = (
     'sweetter.contrib.followers.FollowerPlugin.FollowingList',
     'sweetter.contrib.followers.FollowerPlugin.FollowerList',
     'sweetter.jabberbot.jabberplugin.JabberPlugin',
+    'sweetter.contrib.remove.RemovePlugin.RemovePlugin',
 )
 
 LOGIN_URL = "/login"
