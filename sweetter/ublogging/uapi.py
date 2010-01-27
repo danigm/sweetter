@@ -54,6 +54,14 @@ def own_timeline(request, paginated=True):
     else:
         raise Exception("Not authenticated")
 
+def friends_timeline(user_name):
+    u = User.objects.get(username=user_name)
+    request = Request_moc(u)
+    q = Q(user=u)
+    for p in ublogging.plugins:
+        q = p.post_list(q, request, u.username)
+    return show_statuses(request, q, paginated=False)
+
 def show_statuses(request, query, paginated=True):
     latest_post_list = Post.objects.filter(query).order_by('-pub_date')
     if paginated:

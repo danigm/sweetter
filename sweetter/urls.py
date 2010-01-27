@@ -34,4 +34,5 @@ urlpatterns += patterns('',
     (r'^remove/', include('sweetter.contrib.remove.urls')), 
     (r'^sweetter/vote/(?P<user_id>\d+)/$','sweetter.contrib.karma.views.vote'),
     (r'^sweetter/follow/(?P<user_id>\d+)/$','sweetter.contrib.followers.views.follow'),
+    (r'^api/',include('sweetter.contrib.api.urls')),
    )
