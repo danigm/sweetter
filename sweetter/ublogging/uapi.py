@@ -27,6 +27,8 @@ def new_post(user, text, request=None):
         for p in ublogging.plugins:
             p.posted(request, post)
 
+    return post
+
 def public_timeline(request=None, paginated=True):
     if not request:
         request = Request_moc(None)
