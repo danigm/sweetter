@@ -1,11 +1,15 @@
 from sweetter.ublogging.models import Profile
 import urllib, hashlib
+import time
+import datetime
 
 def jsonize_post(post):
     user = jsonize_user(post.user)
+    created_at = post.pub_date + datetime.timedelta(seconds=time.timezone)
+    created_at = created_at.strftime("%a, %d %b %Y %H:%M:%S")
 
     post_data = dict(user=user,
-                    created_at=post.pub_date.ctime(),
+                    created_at=created_at,
                     id=post.id,
                     text=post.text)
     
