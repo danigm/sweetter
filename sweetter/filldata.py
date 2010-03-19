@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from sweetter.ublogging.register import adduser
-from sweetter.ublogging.uapi import new_post, Request_moc
+from ublogging.register import adduser
+from ublogging.uapi import new_post, Request_moc
 
 users = (
     ('pepe', '123', 'pepe@pepe.com'),
@@ -26,4 +26,3 @@ for i in users:
     u = adduser(*i)
     for p in posts:
         new_post(u, p, Request_moc(u))
-

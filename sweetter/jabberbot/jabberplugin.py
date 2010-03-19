@@ -1,5 +1,6 @@
-from sweetter.ublogging import api
-from sweetter.jabberbot.models import Jabber
+from ublogging import api
+from jabberbot.models import Jabber
+
 
 class JabberPlugin(api.Plugin):
     __plugin_name__ = 'jabberbot'

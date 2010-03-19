@@ -1,12 +1,9 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.template.loader import render_to_string
-from sweetter.ublogging.models import Post
-from django.core.urlresolvers import reverse
-from sweetter.ublogging.api import Plugin
+from ublogging.api import Plugin
 
-import re
-  
+
 class UserForm(Plugin):
     def sidebar(self, context):
         if not context.get('viewing_user','') and context['perms'].user and not context['perms'].user.is_authenticated():
@@ -15,7 +12,7 @@ class UserForm(Plugin):
                 user = authenticate(username=form.cleaned_data.username, password=form.cleaned_data.password)
                 if user is not None and user.is_active:
                     # user logged in succesfully
-                    user.login(request, user)
+                    user.login(context['request'], user)
                     context['user'] = user
                     return u'Thanks'
                 else:

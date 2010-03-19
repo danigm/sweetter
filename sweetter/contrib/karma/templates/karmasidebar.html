@@ -8,7 +8,7 @@
 <table>
    {% for entry in karma_ranking %}
     <tr>
-        <td><a href="{% url sweetter.ublogging.views.user entry.user.username %}">{{ entry.user.username }}</a></td>
+        <td><a href="{% url ublogging.views.user entry.user.username %}">{{ entry.user.username }}</a></td>
         <td>{{ entry.value }}</td>
     </tr>
     {% endfor %}

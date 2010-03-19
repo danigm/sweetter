@@ -1,20 +1,20 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import sys
+import os
+import datetime
 
 sys.path.append("..")
 sys.path.append(".")
 
-import os
-
 os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
 
-from jabberbot.jabberbot import JabberBot
+from django.conf import settings
+
+from jabberbot.bot import JabberBot
 from jabberplugin import JabberPlugin as plugin
-from sweetter.jabberbot.models import Jabber
-from sweetter.ublogging.uapi import new_post, Request_moc
-import settings
-import datetime
+from jabberbot.models import Jabber
+from ublogging.uapi import new_post, Request_moc
 
 class SystemInfoJabberBot(JabberBot):
     '''
@@ -147,7 +147,7 @@ class SystemInfoJabberBot(JabberBot):
     def send_all(self):
         comments = Jabber.objects.all()
         all = plugin.enabled.get_filter(True)
-        
+
         for comment in comments:
             for i in all:
                 if plugin.actived.get_value(i.user.username):

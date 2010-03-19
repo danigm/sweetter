@@ -1,1 +1,1 @@
-export PYTHONPATH=/home/danigm/sweetter3/ export DJANGO_SETTINGS_MODULE=sweetter.settings
+export PYTHONPATH=/home/danigm/sweetter3/ export DJANGO_SETTINGS_MODULE=settings

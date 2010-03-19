@@ -3,17 +3,17 @@
 <div style="groups">
 <h1>Groups</h1>
     <div id="groups">
-        {% for group in group_list %}            
+        {% for group in group_list %}
             <div class="avatar">
-                <a href="{% url sweetter.contrib.groups.views.detail group.id %}">
+                <a href="{% url contrib.groups.views.detail group.id %}">
                 {% comment %} TODO: QUITAR EL /static/ {% endcomment %}
                 <img src="/static/{{ group.icon.url }}" alt="{{ group.name }}" title="{{group.name }}"
                     width="40px" height="40px"/>
                 </a>
-            </div>   
+            </div>
         {% endfor %}
     </div>
     <div style="clear:both">
-        <a href="{% url sweetter.contrib.groups.views.index %}">All groups</a>
+        <a href="{% url contrib.groups.views.index %}">All groups</a>
     </div>
 </div>

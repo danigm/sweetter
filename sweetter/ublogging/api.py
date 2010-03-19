@@ -26,61 +26,61 @@ class Plugin:
         '''
         Called everytime the headbar is rendered. Return a string with
         HTML that will be placed above the content. You should use Django
-        templates. 
-        
+        templates.
+
         Arguments:
             context -- contains: user -> the current logged in user if is
             logged in.
         '''
 
         return ''
-    
-        
+
+
     def sidebar(self, context):
         '''
         Called everytime the sidebar is rendered. Return a string with
         HTML that will be placed in the sidebar. You should use Django
-        templates. 
-        
+        templates.
+
         Arguments:
             context -- contains: user -> the current logged in user if is
             logged in.
         '''
 
         return ''
-    
+
     def tools(self, context, post):
         '''
         Called everytime a message is rendered. Return a string with
         HTML that will be placed in the toolbar (the best option is a
-        little image or button. You should use Django templates. 
-        
+        little image or button. You should use Django templates.
+
         Arguments:
             context -- contains: user -> the current logged in user if is
             logged in.
-            post -- is a Post object 
-        '''            
+            post -- is a Post object
+        '''
 
         return ''
-        
+
     def parse(self, value):
         '''
         Called everytime a message is rendered. Return a string with
         the text of the message.  This is useful for performing
         substitutions based on the content of the message.
-        
+
         Arguments:
             value -- is the text of the message (unicode string)
         '''
 
         return value
-        
+
     def post_list(self, value, request, user_name):
         '''
         Called everytime the index page is requested. Return a Q
         object representing a DB query.  This is useful for including
         posts in the index page.
-        
+
         Arguments:
             value -- is the current built query (a Q object)
             request -- is the user request
@@ -88,22 +88,22 @@ class Plugin:
         '''
 
         return value
-    
+
     def posting(self, request):
         '''
         Called everytime a new post is being added.
         Return True for cancelling the post.
-        
+
         Arguments:
             request -- is the user request.
         '''
 
         return False
-    
+
     def posted(self, request, post):
         '''
         Called everytime a new post has been saved.
-        
+
         Arguments:
             request -- is the user request.
             post -- is the Post saved.
@@ -116,9 +116,9 @@ class PluginOpt:
     Define an user option to use in plugins. Each Option defined as
     attribute of a Plugin class is showed in profile page and could be
     changed and stored. You should prefix each option with the plugin name.
-	Example: jabberplugin__jabber_account.
+    Example: jabberplugin__jabber_account.
     '''
-    
+
     def __init__(self, id, type="str", default=""):
         self.id = id
         self.type = type

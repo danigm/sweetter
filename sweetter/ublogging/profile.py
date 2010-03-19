@@ -1,13 +1,14 @@
-from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from sweetter import ublogging
-from sweetter.ublogging import api
-from django.db.models import Q
-from django.contrib.auth.decorators import login_required
-from sweetter.ublogging.models import Profile
-from sweetter import flash
+
+from ublogging import api
+from ublogging.models import Profile
+import flash
+import ublogging
+
 
 class OPT:
     def __init__(self, id, label, type, value):
@@ -15,6 +16,7 @@ class OPT:
         self.label = label
         self.type = type
         self.value = value
+
 
 @login_required
 def profile(request):
@@ -45,7 +47,7 @@ def profile(request):
 
         if pw and pw != pw2:
             flash.set_flash(request, "Password confirmation fails. Changes not saved", "error")
-            return HttpResponseRedirect(reverse('sweetter.ublogging.views.profile'))
+            return HttpResponseRedirect(reverse('ublogging.views.profile'))
         elif pw:
             request.user.set_password(pw)
             request.user.save()
@@ -65,9 +67,10 @@ def profile(request):
                     except:
                         # checkbox to false
                         opt.set(False, request.user.username)
-        
+
         flash.set_flash(request, "Preferences saved")
-        return HttpResponseRedirect(reverse('sweetter.ublogging.views.profile'))
+        return HttpResponseRedirect(reverse('ublogging.views.profile'))
+
 
 @login_required
 def renewapikey(request):
@@ -76,5 +79,4 @@ def renewapikey(request):
     profile.save()
 
     flash.set_flash(request, "ApiKey changed.")
-    return HttpResponseRedirect(reverse('sweetter.ublogging.views.profile'))
-
+    return HttpResponseRedirect(reverse('ublogging.views.profile'))

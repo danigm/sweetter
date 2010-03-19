@@ -2,7 +2,7 @@
     {% if following %}
         You are following {{ user.username }}
     {% endif %}
-    <form action="{% url sweetter.contrib.followers.views.follow user.id %}" method="post">
+    <form action="{% url contrib.followers.views.follow user.id %}" method="post">
         <button name="vote" value="1" class="follow"><img src="/static/{{ image }}.png" alt="follow">
         {% if following %}
             Unfollow {{ user.username }}

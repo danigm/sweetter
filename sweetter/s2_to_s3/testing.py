@@ -1,20 +1,20 @@
 #!/usr/bin/python
 
-#export PYTHONPATH=/home/danigm/sweetter3/ export DJANGO_SETTINGS_MODULE=sweetter.settings
+#export PYTHONPATH=/home/danigm/sweetter3/ export DJANGO_SETTINGS_MODULE=settings
 
 from hashlib import md5
 
 import sys
 import os
 os.environ['PYTHONPATH'] = "/home/danigm/sweetter3"
-os.environ['DJANGO_SETTINGS_MODULE'] = "sweetter.settings"
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
 import random
 import string
 sys.path += [os.path.abspath(".."), os.path.abspath("../..")]
 
 import s2model
-from sweetter.ublogging.models import *
-from sweetter.contrib.followers.models import Follower
+from ublogging.models import *
+from contrib.followers.models import Follower
 
 def generate():
     return "".join([random.choice(string.letters+string.digits) for _ in range(11)])

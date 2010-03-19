@@ -59,8 +59,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.request',
-    'sweetter.flash.context_processor',
-    'sweetter.ublogging.contexts.profile',
+    'flash.context_processor',
+    'ublogging.contexts.profile',
 )
 
 INTERNAL_IPS = ('127.0.0.1', )
@@ -76,7 +76,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'sweetter.urls'
+ROOT_URLCONF = 'urls'
 
 AUTH_PROFILE_MODULE = 'ublogging.Profile'
 
@@ -95,28 +95,28 @@ INSTALLED_APPS = (
 
     'django.contrib.webdesign',
 
-    'sweetter.ublogging',
-    'sweetter.contrib.userform',
-    'sweetter.contrib.groups',
-    'sweetter.contrib.recoverpw',
-    'sweetter.contrib.karma',
-    'sweetter.contrib.followers',
-    'sweetter.contrib.replies',
-    'sweetter.contrib.remove',
+    'ublogging',
+    'contrib.userform',
+    'contrib.groups',
+    'contrib.recoverpw',
+    'contrib.karma',
+    'contrib.followers',
+    'contrib.replies',
+    'contrib.remove',
 
-    'sweetter.jabberbot',
+    'jabberbot',
 )
 
 INSTALLED_PLUGINS = (
-    'sweetter.contrib.userform.UserForm.UserForm',
-    'sweetter.contrib.replies.RepliesPlugin.RepliesPlugin',
-    'sweetter.contrib.groups.GroupsPlugin.GroupHooks',
-    'sweetter.contrib.recoverpw.recoverplugin.Recover',
-    'sweetter.contrib.karma.KarmaPlugin.KarmaCount',
-    'sweetter.contrib.followers.FollowerPlugin.FollowingList',
-    'sweetter.contrib.followers.FollowerPlugin.FollowerList',
-    'sweetter.jabberbot.jabberplugin.JabberPlugin',
-    'sweetter.contrib.remove.RemovePlugin.RemovePlugin',
+    'contrib.userform.UserForm.UserForm',
+    'contrib.replies.RepliesPlugin.RepliesPlugin',
+    'contrib.groups.GroupsPlugin.GroupHooks',
+    'contrib.recoverpw.recoverplugin.Recover',
+    'contrib.karma.KarmaPlugin.KarmaCount',
+    'contrib.followers.FollowerPlugin.FollowingList',
+    'contrib.followers.FollowerPlugin.FollowerList',
+    'jabberbot.jabberplugin.JabberPlugin',
+    'contrib.remove.RemovePlugin.RemovePlugin',
 )
 
 LOGIN_URL = "/login"

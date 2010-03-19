@@ -1,9 +1,11 @@
-from django.db import models
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-
 import string
 import random
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.forms import ModelForm, ValidationError
 
 def generate_apikey():
     chars = string.letters + string.digits
@@ -14,7 +16,7 @@ class Profile(models.Model):
     apikey = models.CharField(max_length=20)
     url = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
-    
+
     def __unicode__(self):
         return self.user.username
 
@@ -22,7 +24,7 @@ class Profile(models.Model):
         if not self.id:
             self.apikey = generate_apikey()
             self.location = "sweetter city"
-            self.url = "http://sweetter.net/user/" + self.user.username
+            self.url = reverse("ublogging.views.user", kwargs={'user_name':self.user.username})
         super(Profile, self).save(*args, **kwargs)
 
     def regen_apikey(self):
@@ -39,7 +41,7 @@ class Option(models.Model):
 
     def __unicode__(self):
         return '<%s, %s, %s>' % (self.user.username, self.optid, self.data)
-        
+
 class Post(models.Model):
     user = models.ForeignKey(User)
     text = models.CharField(max_length=140)
@@ -49,26 +51,18 @@ class Post(models.Model):
     def __unicode__(self):
         return self.text
 
-# SIGNALS AND LISTENERS
-from django.contrib.auth.models import User
-
-
-# User
 def user_post_save(sender, instance, signal, *args, **kwargs):
     # Creates user profile
     profile, new = Profile.objects.get_or_create(user=instance)
 
 models.signals.post_save.connect(user_post_save, sender=User)
 
-# FORMS
-from django.forms import ModelForm, ValidationError
-
 # RegisterProfile
 class RegisterUserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(RegisterUserForm, self).__init__(*args, **kwargs)
         self.fields['email'].required = True
-        
+
     class Meta:
         model = User
         fields = ('username', 'email')
@@ -78,4 +72,3 @@ class RegisterUserForm(UserCreationForm):
         if email and User.objects.filter(email=email).count():
             raise ValidationError(u'Email addresses must be unique.')
         return email
-

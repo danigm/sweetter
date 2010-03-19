@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from sweetter.ublogging.models import Post, User
 from django.contrib.auth.decorators import login_required
+
+from ublogging.models import Post
+
 
 @login_required
 def remove(request, postid):
@@ -12,4 +13,3 @@ def remove(request, postid):
             p.delete()
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
-

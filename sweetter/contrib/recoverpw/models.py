@@ -1,6 +1,8 @@
 from django.db import models
-from sweetter.ublogging.models import User
-from sweetter.ublogging.models import generate_apikey
+
+from ublogging.models import User
+from ublogging.models import generate_apikey
+
 
 class Recover(models.Model):
     user = models.ForeignKey(User, unique=True)
@@ -16,4 +18,3 @@ class Recover(models.Model):
 
     def regen_key(self):
         self.key = generate_apikey()
-

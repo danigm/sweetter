@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('sweetter.contrib.api.views',
+urlpatterns = patterns('contrib.api.views',
     (r'statuses/user_timeline/(?P<username>\w+).json', 'user_timeline'),
     (r'statuses/user_timeline.json', 'auth_user_timeline'),
     (r'statuses/replies.json', 'replies'),

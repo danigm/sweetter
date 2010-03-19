@@ -1,12 +1,15 @@
-from sweetter.ublogging.api import Plugin
-from django.template.loader import render_to_string
-from sweetter.ublogging.models import Post
-from django.db.models import Q
-from django.core.urlresolvers import reverse
-
 import re
 
+from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.template.loader import render_to_string
+
+from ublogging.api import Plugin
+from ublogging.models import Post
+
+
 class RepliesPlugin(Plugin):
+
     def __init__(self):
         self.script = '''
 <script>
@@ -18,23 +21,23 @@ class RepliesPlugin(Plugin):
     });
 </script>
 '''
-    
+
     def parse(self, value):
         regex = re.compile("[:punct:]*(@[A-Za-z_\-\d]*)[:punct:]*")
         matches = re.findall(regex, value)
         if matches:
             dict = { }
             for match in matches:
-                url = reverse('sweetter.ublogging.views.user', args= [match[1:]])
+                url = reverse('ublogging.views.user', args=[match[1:]])
                 text = '<a href="'+url+'">'+match+'</a>'
                 dict[match] = text
-            for key in dict:                
+            for key in dict:
                 value = value.replace(key, dict[key])
         return value
-    
-    def post_list(self, value, request, user_name):      
+
+    def post_list(self, value, request, user_name):
         return value | Q(text__contains = "@"+user_name)
-    
+
     def sidebar(self, context):
         if context['perms'].user and not context['perms'].user.is_authenticated():
             return ''
@@ -42,7 +45,7 @@ class RepliesPlugin(Plugin):
             user = context['perms'].user
             replies = str(Post.objects.filter(text__contains="@"+user.username).count())
             posts = str(Post.objects.filter(user=user).count())
-            url = reverse('sweetter.contrib.replies.views.replies')
+            url = reverse('contrib.replies.views.replies')
             return self.script +\
                     '<a href="'+url+'">Replies</a>: '+replies+\
                     " | Sweets: "+posts

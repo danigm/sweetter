@@ -1,14 +1,12 @@
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.db.models import Q
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib.auth.forms import UserCreationForm
-from sweetter.ublogging.models import Post, User, Profile
-from sweetter.contrib.groups.models import Group
-from django.db.models import Q
-from django.contrib.auth.decorators import login_required
-import datetime
+
+from ublogging.models import Post, Profile
+from contrib.groups.models import Group
+
 
 @login_required
 def detail(request,object_id):
@@ -20,7 +18,8 @@ def detail(request,object_id):
     return render_to_response('groups/detail.html', {
             'object': g, 'join_message':join_message
         }, context_instance=RequestContext(request))
-        
+
+
 @login_required
 def join(request,group_name):
     g = Group.objects.get(name=group_name)
@@ -36,26 +35,26 @@ def join(request,group_name):
     return render_to_response('groups/detail.html', {
             'object': g, 'join_message':join_message
         }, context_instance=RequestContext(request))
-        
+
+
 def messages(request,group_name):
     g = Group.objects.get(name__iexact=group_name)
     q = Q()
     for user_temp in g.users.all():
         q = q | Q(user = user_temp.user)
     latest_post_list = Post.objects.filter(q).order_by('-pub_date')
-    paginator = Paginator(latest_post_list, 10) 
+    paginator = Paginator(latest_post_list, 10)
 
     try:
         page = int(request.GET.get('page', '1'))
     except ValueError:
         page = 1
-    
+
     try:
         latest_post_list = paginator.page(page)
     except (EmptyPage, InvalidPage):
         latest_post_list = paginator.page(paginator.num_pages)
- 
+
     return render_to_response('status/index.html', {
             'latest_post_list': latest_post_list
         }, context_instance=RequestContext(request))
-    

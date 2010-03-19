@@ -1,26 +1,26 @@
-from django.http import HttpResponseRedirect
-from django.http import HttpResponse
+import re
+
 from django.contrib.auth import logout as djlogout
-from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from sweetter.ublogging.models import RegisterUserForm
-from sweetter import ublogging
-from sweetter.ublogging.models import Post, User, Profile
-from sweetter.ublogging import api
-from django.db.models import Q
-from django.contrib.auth.decorators import login_required
-from sweetter import flash
-import uapi
-from uapi import paginate_list
 
-import register
-join = register.join
-validate = register.validate
+from ublogging import api
+from ublogging import uapi
+from ublogging.models import Post, User, Profile
+from ublogging.models import RegisterUserForm
+from ublogging.profile import profile, renewapikey
+from ublogging.register import join, validate
+from ublogging.uapi import paginate_list
+import flash
+import ublogging
 
-from profile import profile
-from profile import renewapikey
 
 def sweet(request, sweetid):
     sweetid=int(sweetid)
@@ -37,14 +37,16 @@ def sweet(request, sweetid):
             'viewing_profile': profile,
         }, context_instance=RequestContext(request))
 
+
 def public_timeline(request):
     latest_post_list = uapi.public_timeline(request)
-    
+
     return render_to_response('status/index.html', {
             'latest_post_list': latest_post_list,
-            'feedurl': "/feeds/public", 
+            'feedurl': "/feeds/public",
             'viewing': "public",
         }, context_instance=RequestContext(request))
+
 
 def index(request):
     try:
@@ -54,10 +56,12 @@ def index(request):
 
     return show_statuses(request, latest_post_list)
 
+
 def user(request, user_name):
     latest_post_list = uapi.user_timeline(user_name, request)
     u = User.objects.get(username=user_name)
     return show_statuses(request, latest_post_list, user=u)
+
 
 def show_statuses(request, latest_post_list, user=None):
     if user:
@@ -66,29 +70,29 @@ def show_statuses(request, latest_post_list, user=None):
     else:
         feedurl = "/feeds/user/%s" % request.user.username
         profile = None
-    
+
     return render_to_response('status/index.html', {
             'latest_post_list': latest_post_list,
             'viewing_user': user,
             'viewing_profile': profile,
-            'feedurl': feedurl, 
+            'feedurl': feedurl,
         }, context_instance=RequestContext(request))
+
 
 @login_required
 def new(request):
     text = request.POST['text']
     uapi.new_post(request.user, text, request)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
-    #return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+    #return HttpResponseRedirect(reverse('ublogging.views.index'))
+
 
 @login_required
 def logout(request):
     djlogout(request)
-    return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+    return HttpResponseRedirect(reverse('ublogging.views.index'))
 
-from django.core import serializers
 
-import re
 def refresh_index(request, lastid, pagenumber):
     url = request.META['HTTP_REFERER']
     usere = r'(.*)/user/(?P<username>[^\?\/]*)'
@@ -117,4 +121,3 @@ def refresh_index(request, lastid, pagenumber):
                                 context_instance=RequestContext(request))
     else:
         return HttpResponse("")
-

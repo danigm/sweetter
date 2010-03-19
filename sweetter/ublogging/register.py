@@ -1,13 +1,14 @@
+from django.conf import settings
+from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.core.urlresolvers import reverse
-from sweetter.ublogging.models import RegisterUserForm
-from sweetter.ublogging.models import Profile, User
-from sweetter import flash
-from django.core.mail import send_mail
-import settings
+
+from ublogging.models import Profile, User
+from ublogging.models import RegisterUserForm
+import flash
+
 
 def send_confirmation(user):
     subject = "sweetter 3.0 registry confirmation"
@@ -15,9 +16,10 @@ def send_confirmation(user):
     from_email = settings.MSG_FROM
     vars = {'username': user.username, 'apikey': profile.apikey}
     message = settings.CONFIRMATION_MSG % vars
-    
+
     to_email = user.email
     send_mail(subject, message, from_email, [to_email], fail_silently=False)
+
 
 def join(request):
     if request.method == 'POST':
@@ -29,7 +31,7 @@ def join(request):
             user.save()
 
             send_confirmation(user)
-            
+
             flash.set_flash(request, "Thanks for register, you'll receive a confirmation email")
             form = RegisterUserForm()
             return render_to_response('join.html', {
@@ -46,6 +48,7 @@ def join(request):
             'form': form,
         }, context_instance=RequestContext(request))
 
+
 def validate(request, apikey):
     try:
         profile = Profile.objects.get(apikey=apikey)
@@ -55,7 +58,8 @@ def validate(request, apikey):
     except:
         flash.set_flash(request, "Invalid apikey", "error")
 
-    return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+    return HttpResponseRedirect(reverse('ublogging.views.index'))
+
 
 def adduser(username, password, email):
     u = User(username=username, email=email)

@@ -1,13 +1,13 @@
-from django.http import HttpResponseRedirect
+import re
+
+from django.db.models import Q
 from django.http import HttpResponse
-from django.core.urlresolvers import reverse
-from sweetter.ublogging.models import Post, User
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.db.models import Q
-from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.contrib.auth.decorators import login_required
-from sweetter.ublogging.views import paginate_list
+
+from ublogging.views import paginate_list
+from ublogging.models import Post
+
 
 def get_replies(request, user_name=None):
     if user_name is None:
@@ -17,6 +17,7 @@ def get_replies(request, user_name=None):
 
     return latest_post_list
 
+
 def replies(request, user_name=None):
     latest_post_list = get_replies(request, user_name)
     latest_post_list = paginate_list(request, latest_post_list)
@@ -25,7 +26,7 @@ def replies(request, user_name=None):
             'refresh_uri': '/replies/refresh',
         }, context_instance=RequestContext(request))
 
-import re
+
 def refresh(request, lastid, pagenumber):
     url = request.META['HTTP_REFERER']
     usere = r'(.*)/replies/(?P<username>[^\?\/]*)'
@@ -45,6 +46,7 @@ def refresh(request, lastid, pagenumber):
                                 context_instance=RequestContext(request))
     else:
         return HttpResponse("")
+
 
 def replies_username(request, user_name):
     return replies(request, user_name)

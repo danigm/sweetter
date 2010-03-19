@@ -1,6 +1,8 @@
 from django.template.loader import render_to_string
-from sweetter.contrib.groups.models import Group
-from sweetter.ublogging.api import Plugin
+
+from contrib.groups.models import Group
+from ublogging.api import Plugin
+
 
 class GroupHooks(Plugin):
     def sidebar(self, context):

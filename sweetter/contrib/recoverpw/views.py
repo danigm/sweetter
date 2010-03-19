@@ -1,14 +1,17 @@
-from django.http import HttpResponseRedirect
-from django.http import HttpResponse
+import random
+import string
+
+from django.conf import settings
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from sweetter.ublogging.models import User
-from sweetter.contrib.recoverpw.models import Recover
-from django.core.mail import send_mail
-from sweetter import flash
-import string, random
-import settings
+
+from contrib.recoverpw.models import Recover
+from ublogging.models import User
+import flash
+
 
 def index(request):
     if request.method == 'GET':
@@ -21,8 +24,8 @@ def index(request):
     if len(u):
         u = u[0]
     else:
-        return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
-        
+        return HttpResponseRedirect(reverse('ublogging.views.index'))
+
     try:
         r = Recover.objects.filter(user=u)[0]
         r.regen_key()
@@ -38,12 +41,13 @@ def index(request):
     from_email = settings.MSG_FROM
     vars = {'username': u.username, 'key': key}
     message = settings.RECOVERY_MSG % vars
-    
+
     to_email = mail
     send_mail(subject, message, from_email, [to_email], fail_silently=False)
 
     flash.set_flash(request, "Recovery proccess starts, you'll receive a confirmation email")
-    return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+    return HttpResponseRedirect(reverse('ublogging.views.index'))
+
 
 def validate(request, key):
     k = Recover.objects.filter(key=key)
@@ -51,10 +55,10 @@ def validate(request, key):
         k = k[0]
     else:
         flash.set_flash(request, "wrong recovery key", "error")
-        return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
+        return HttpResponseRedirect(reverse('ublogging.views.index'))
 
     u = k.user
-    chars = string.letters+string.digits
+    chars = string.letters + string.digits
     newp = ''.join([random.choice(chars) for i in range(11)])
 
     u.set_password(newp)
@@ -63,5 +67,4 @@ def validate(request, key):
     k.delete()
 
     flash.set_flash(request, "'%s' your new password is '%s', login and change it." % (u.username, newp))
-    return HttpResponseRedirect(reverse('sweetter.ublogging.views.index'))
-
+    return HttpResponseRedirect(reverse('ublogging.views.index'))

@@ -1,7 +1,9 @@
-from sweetter.ublogging.models import Profile
-import urllib, hashlib
-import time
 import datetime
+import time
+import urllib, hashlib
+
+from ublogging.models import Profile
+
 
 def jsonize_post(post):
     user = jsonize_user(post.user)
@@ -12,7 +14,7 @@ def jsonize_post(post):
                     created_at=created_at,
                     id=post.id,
                     text=post.text)
-    
+
     return post_data
 
 
@@ -27,7 +29,7 @@ def jsonize_user(user):
     return user_data
 
 
-def gravatar(email, size=48):    
+def gravatar(email, size=48):
     gravatar_url = "http://www.gravatar.com/avatar.php?"
     gravatar_url += urllib.urlencode({'gravatar_id':hashlib.md5(email.lower()).hexdigest(), 'size':str(size)})
-    return gravatar_url 
+    return gravatar_url

@@ -1,6 +1,8 @@
 from django import template
-from sweetter import ublogging
-from sweetter.contrib.groups.models import Group
+
+import ublogging
+from contrib.groups.models import Group
+
 
 register = template.Library()
 

@@ -1,9 +1,9 @@
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from sweetter.contrib.followers.models import Follower
-from sweetter.ublogging.models import Post, User
-from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+
+from contrib.followers.models import Follower
+from ublogging.models import User
+
 
 @login_required
 def follow(request, user_id):

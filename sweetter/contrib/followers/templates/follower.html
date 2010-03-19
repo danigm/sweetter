@@ -3,12 +3,12 @@
 <div class="followers" style="clear:left">
 <h1>Followers</h1>
     <div id="followers">
-        {% for follower in followers %}            
+        {% for follower in followers %}
             <div class="avatar">
-                <a href="{% url sweetter.ublogging.views.user follower.follower.username %}">
+                <a href="{% url ublogging.views.user follower.follower.username %}">
                 <img src="{% gravatar follower.follower.email 24 %}" alt="{{ follower.follower.username }}" title="{{follower.follower.username }}"/>
                 </a>
-            </div>   
+            </div>
         {% endfor %}
     </div>
 </div>

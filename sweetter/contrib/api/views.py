@@ -1,13 +1,14 @@
 from django.core.urlresolvers import reverse
-from django.utils import simplejson as json
 from django.http import HttpResponse
+from django.utils import simplejson as json
 
-from sweetter.ublogging.models import Post
-from sweetter.ublogging import uapi
-from sweetter.contrib.replies.views import get_replies
+from contrib.replies.views import get_replies
+from ublogging import uapi
+from ublogging.models import Post
 
 from httpauth import http_auth
 from jsonize import jsonize_post
+
 
 def user_timeline(request, username):
     posts = uapi.user_timeline(username, paginated=False)[:20]
@@ -74,5 +75,5 @@ def destroy(request, id):
     else:
         rq = reverse(destroy, kwargs={'id':id})
         response = dict(request=rq, error="That's not yours.")
-    
+
     return HttpResponse(json.dumps(response), mimetype='application/json')

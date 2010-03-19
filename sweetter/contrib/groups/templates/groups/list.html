@@ -7,7 +7,7 @@
 
 {% if object_list %}
     <div id="groups">
-        {% for group in object_list %}            
+        {% for group in object_list %}
             {% format_group group %}
         {% endfor %}
     </div>
@@ -15,6 +15,6 @@
     <p>No groups are available.</p>
 {% endif %}
 <p>
-<a href="{% url sweetter.contrib.groups.views.create %}"/>Create new group</a>
+<a href="{% url contrib.groups.views.create %}"/>Create new group</a>
 </p>
 {% endblock content %}

@@ -10,10 +10,10 @@
 {% endblock top %}
 
 {% block content %}
-    <form action="{% url sweetter.ublogging.views.profile %}" method="post">
+    <form action="{% url ublogging.views.profile %}" method="post">
         <fieldset>
         <legend>Sweetter 3.0 options</legend>
-        
+
             <label for="apikey">Apikey:</label>
             <div id="apikey">
                 {{apikey}}

@@ -1,12 +1,19 @@
-from django import template
-from django.template.defaultfilters import stringfilter
-
-from sweetter import ublogging
-from sweetter.ublogging.models import Post
-
+import StringIO
 import textparsers
+import tokenize
+import urllib
+import hashlib
+
+from django import template
+from django.conf import settings
+from django.template.defaultfilters import stringfilter
+from django.template.loader import get_template
+
+import ublogging
+
 
 register = template.Library()
+
 
 @register.filter
 @stringfilter
@@ -15,40 +22,45 @@ def parse(value):
         value = p.parse(value)
     return value
 
+
 @register.inclusion_tag("status/sweet.html", takes_context='True')
 def format_sweet(context, sweet):
     return {'post': sweet, 'context':context}
 
+
 @register.simple_tag
-def gravatar(email, size=48):    
-    import urllib, hashlib
+def gravatar(email, size=48):
 
     # construct the url
     gravatar_url = "http://www.gravatar.com/avatar.php?"
     gravatar_url += urllib.urlencode({'gravatar_id':hashlib.md5(email.lower()).hexdigest(), 'size':str(size)})
-    return gravatar_url 
+    return gravatar_url
+
 
 @register.tag("sidebar")
 def do_sidebar(parser, token):
-    try:    
+    try:
         tag_name = token.split_contents()
     except ValueError:
         raise template.TemplateSyntaxError, "%r tag requires no arguments" % token.contents.split()[0]
     return SidebarNode()
 
+
 class SidebarNode(template.Node):
+
     def __init__(self):
         self.user = template.Variable('user')
         self.viewing_user = template.Variable('viewing_user')
         self.request = template.Variable('request')
-        
+
     def render(self, context):
         user = self.user.resolve(context)
         request = self.request.resolve(context)
         '''context['user'] = user
         context['request'] = request'''
-        s = ''.join(p.sidebar(context) for p in ublogging.plugins)    
+        s = ''.join(p.sidebar(context) for p in ublogging.plugins)
         return s
+
 
 @register.tag("headbar")
 def do_headbar(parser, token):
@@ -58,52 +70,51 @@ def do_headbar(parser, token):
         raise template.TemplateSyntaxError, "%r tag requires no arguments" % token.contents.split()[0]
     return HeadbarNode()
 
+
 class HeadbarNode(template.Node):
+
     def __init__(self):
         self.user = template.Variable('user')
         self.viewing_user = template.Variable('viewing_user')
         self.request = template.Variable('request')
-        
+
     def render(self, context):
         user = self.user.resolve(context)
         request = self.request.resolve(context)
         '''context['user'] = user
         context['request'] = request'''
-        s1 = ''.join(p.headbar(context) for p in ublogging.plugins)    
+        s1 = ''.join(p.headbar(context) for p in ublogging.plugins)
         if s1:
             s = '<div id="headbar">%s</div>' % s1
         else:
             s = ''
         return s
 
+
 @register.tag("tools")
 def do_tools(parser, token):
-    try:    
+    try:
         tag_name, post, context = token.split_contents()
     except ValueError:
         raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[0]
     return ToolsNode(post,context)
 
+
 class ToolsNode(template.Node):
-    def __init__(self, post, the_context):        
+
+    def __init__(self, post, the_context):
         self.post = template.Variable(post)
         self.the_context = template.Variable(the_context)
-        
+
     def render(self, context):
         post = self.post.resolve(context)
         the_context = self.the_context.resolve(context)
-        s = ''.join(p.tools(the_context, post) for p in ublogging.plugins if p.tools)    
-        return s        
-    
-    
-from django import template
-from django.template.loader import get_template
-from django.conf import settings
+        s = ''.join(p.tools(the_context, post) for p in ublogging.plugins if p.tools)
+        return s
 
-import tokenize
-import StringIO
 
 class CallNode(template.Node):
+
    def __init__(self, template_name, *args, **kwargs):
        self.template_name = template_name
        self.args = args
@@ -129,6 +140,7 @@ class CallNode(template.Node):
            if settings.TEMPLATE_DEBUG:
               raise
            return ''
+
 
 @register.tag("call")
 def do_call(parser, token):
@@ -167,4 +179,3 @@ def do_call(parser, token):
            else:
                args.append(parser.compile_filter(i))
    return CallNode(path, *args, **kwargs)
-
