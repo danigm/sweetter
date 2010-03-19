@@ -43,7 +43,7 @@ def public_timeline(request):
 
     return render_to_response('status/index.html', {
             'latest_post_list': latest_post_list,
-            'feedurl': "/feeds/public",
+            'feedurl': reverse('django.contrib.syndication.views.feed', kwargs={'url': 'public'}),
             'viewing': "public",
         }, context_instance=RequestContext(request))
 
@@ -66,9 +66,9 @@ def user(request, user_name):
 def show_statuses(request, latest_post_list, user=None):
     if user:
         profile = Profile.objects.get(user=user)
-        feedurl = "/feeds/user/%s" % user.username
+        feedurl = reverse('django.contrib.syndication.views.feed', kwargs={'url': 'user/%s' % user.username})
     else:
-        feedurl = "/feeds/user/%s" % request.user.username
+        feedurl = reverse('django.contrib.syndication.views.feed', kwargs={'url': 'user/%s' % request.user.username})
         profile = None
 
     return render_to_response('status/index.html', {

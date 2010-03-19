@@ -10,6 +10,8 @@ ADMINS = (
     ('Daniel Garcia Moreno', 'dani@danigm.net'),
 )
 
+DOMAIN = 'http://sweetter.net'
+
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'      # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.

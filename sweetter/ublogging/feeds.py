@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.syndication.feeds import Feed
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
@@ -8,7 +9,7 @@ from ublogging import uapi
 
 class PublicTimeline(Feed):
     title = "Sweetter 3.0 public timeline"
-    link = "http://sweetter.net"
+    link = settings.DOMAIN
     description = "Latest sweets"
 
     def items(self):
@@ -19,7 +20,7 @@ class PublicTimeline(Feed):
         return sweets
 
     def item_link(self, item):
-        return 'http://sweetter.net'+reverse('ublogging.views.sweet', kwargs={'sweetid':item.id})
+        return settings.DOMAIN + reverse('ublogging.views.sweet', kwargs={'sweetid':item.id})
 
     def item_author_name(self, item):
         return item.user.username
@@ -41,7 +42,7 @@ class UserTimeline(Feed):
         return "Latest %s sweets" % obj.username
 
     def link(self, obj):
-        return "http://sweetter.net" + reverse("ublogging.views.user", kwargs={'user_name': obj.username})
+        return settings.DOMAIN + reverse("ublogging.views.user", kwargs={'user_name': obj.username})
 
     def items(self, obj):
         sweetT = "%s: %s"
@@ -51,7 +52,7 @@ class UserTimeline(Feed):
         return sweets
 
     def item_link(self, item):
-        return 'http://sweetter.net'+reverse('ublogging.views.sweet', kwargs={'sweetid':item.id})
+        return settings.DOMAIN + reverse('ublogging.views.sweet', kwargs={'sweetid':item.id})
 
     def item_author_name(self, item):
         return item.user.username
