@@ -1,12 +1,13 @@
-import os 
+from os import path
 
 # Django settings for sweetter project.
+BASEDIR = path.dirname(path.abspath(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('Daniel Garcia Moreno', 'dani@danigm.net'),
 )
 
 MANAGERS = ADMINS
@@ -37,12 +38,12 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(os.getcwd(), 'static/')
+MEDIA_ROOT = path.join(BASEDIR, 'static')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/static/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -53,9 +54,9 @@ ADMIN_MEDIA_PREFIX = '/media/'
 SECRET_KEY = 'om7odj)f4_bn-djy!^tdw2!!49ip+86e98#0-(#*vzg@x4sqag'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.auth', 
-    'django.core.context_processors.debug', 
-    'django.core.context_processors.i18n', 
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.request',
     'sweetter.flash.context_processor',
@@ -64,12 +65,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 INTERNAL_IPS = ('127.0.0.1', )
 
-
-# List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,28 +83,19 @@ AUTH_PROFILE_MODULE = 'ublogging.Profile'
 LOGIN_REDIRECT_URL = '/'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-	'templates',    
-    # Plugins add their own templates
-    'contrib.groups.templates',
-    'contrib.recoverpw.templates',
-    'contrib.karma.templates',
-    'contrib.followers.templates'
-    'contrib.replies.templates'
+    path.join(BASEDIR, 'templates'),
 )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
-	'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    
+
     'django.contrib.webdesign',
-    
-	'sweetter.ublogging',
+
+    'sweetter.ublogging',
     'sweetter.contrib.userform',
     'sweetter.contrib.groups',
     'sweetter.contrib.recoverpw',
@@ -138,7 +127,7 @@ JB_USER = "sbottest@jabberes.org"
 JB_PASSWD = "..."
 
 # email config
-    
+
 MSG_FROM = "terron@sweetter.net"
 CONFIRMATION_MSG = """
 Swetter 3.0 validation
