@@ -15,7 +15,7 @@
 
 {% block top %}
 {% if user.is_authenticated %}
-<form action="{% url ublogging.views.new %}" method="post">
+<form id="post_form" action="{% url ublogging.views.new %}" method="post">
     <textarea maxlength="140" name="text" id="text"></textarea>
     <span id="counter">140</span>
     <div id="hc" class="hide">140</div>

@@ -9,16 +9,17 @@ $(document).ready(function() {
 
  $("#post_button").click(function(){
     text = $("#text").get(0).value;
+    url = $("#post_form").attr('action');
     $("#text").attr('disabled', 'disabled');
     $("#post_button").attr('disabled', 'disabled');
     loading(true);
-    $.post("/sweetter/status/new", { text: text },
+    $.post(url, { text: text },
       function(data){
         refresh();
         $("#post_button").removeAttr('disabled');
         $("#text").removeAttr('disabled');
         $("#text")[0].value = "";
-      }); 
+      });
 
     return false;
  });
@@ -63,11 +64,11 @@ function updateStatusTextCharCounter(value, max) {
     if (len > max) {
         if ($("#new").attr('disabled') != 'disabled') {
             $('#new').attr('disabled', 'disabled');
-        }   
+        }
     } else {
         if ($("#new").attr('disabled') == true) {
             $('#new').removeAttr('disabled');
-        }   
+        }
 
         if (res > 10) {
             $('#counter').css('color', '#999' );
@@ -75,8 +76,8 @@ function updateStatusTextCharCounter(value, max) {
             $('#counter').css('color', '#940000' );
         } else {
             $('#counter').css('color', '#f00' );
-        }   
-    }   
+        }
+    }
 }
 
 function shover(){
@@ -88,5 +89,5 @@ function shover(){
         $(this).css("background-color", "transparent");
         $(this).find(".tools").hide();
  });
- mytime = setTimeout("refresh()", timeout*1000); 
+ mytime = setTimeout("refresh()", timeout*1000);
  }
