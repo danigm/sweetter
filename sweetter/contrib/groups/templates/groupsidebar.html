@@ -6,8 +6,7 @@
         {% for group in group_list %}
             <div class="avatar">
                 <a href="{% url contrib.groups.views.detail group.id %}">
-                {% comment %} TODO: QUITAR EL /static/ {% endcomment %}
-                <img src="/static/{{ group.icon.url }}" alt="{{ group.name }}" title="{{group.name }}"
+                <img src="{{ group.icon.url }}" alt="{{ group.name }}" title="{{group.name }}"
                     width="40px" height="40px"/>
                 </a>
             </div>

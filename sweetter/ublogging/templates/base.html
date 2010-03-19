@@ -7,17 +7,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <title>Sweetter 3.0: {% block title %} Microblogging {% endblock %}</title>
-    <!-- <link rel="stylesheet" href="/static/style.css" /> -->
 
-    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/static/themes/sweetter3/css/default.css" />
+    <link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="{{ MEDIA_URL }}themes/sweetter3/css/default.css" />
     {% block feed %} {% endblock %}
     {% block css %} {% endblock %}
     {% block js %} {% endblock %}
   </head>
   <body>
     <div id="principal">
-        <a href="/">
+        <a href="{% url ublogging.views.index %}">
         <div id="title">
             <h1>Sweetter 3.0</h1>
         </div>

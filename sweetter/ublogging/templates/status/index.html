@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block js %}
-    <script type="text/javascript" src="/static/js/jquery.js"></script>
-    <script type="text/javascript" src="/static/js/index.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/index.js"></script>
 {% endblock %}
 
 {% block feed %}
@@ -21,7 +21,7 @@
     <div id="hc" class="hide">140</div>
     <input id="post_button" class="button" type="submit" value="Post!" />
 </form>
-<img id="refresh_img" src="/static/ajax-loader.gif" style="display:none"/>
+<img id="refresh_img" src="{{ MEDIA_URL }}ajax-loader.gif" style="display:none"/>
 {% endif %}
 {% endblock top %}
 

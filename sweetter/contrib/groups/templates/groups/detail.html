@@ -7,8 +7,7 @@
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
     <div class="avatar">
-        {% comment %} TODO: QUITAR EL /static/ {% endcomment %}
-        <img src="/static/{{ object.icon.url }}" alt="{{ object.name }}" title="{{ object.name }}"
+        <img src="{{ MEDIA_URL }}{{ object.icon.url }}" alt="{{ object.name }}" title="{{ object.name }}"
             width="60px" height="60px"/>
     </div>
 <h1><a href="{% url contrib.groups.views.messages object.name %}">{{ object.name }}</a></h1>

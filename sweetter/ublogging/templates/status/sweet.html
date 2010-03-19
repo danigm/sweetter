@@ -13,7 +13,7 @@
     <div class="sweet-text">
         <span class="username"><a href="{% url ublogging.views.user post.user.username %}">{{ post.user.username }}</a></span> said: <br/>
         <span class="text">{{ post.text|force_escape|parse|safe|urlizetrunc:31 }}</span>
-        <div class="date"><a href="/sweetter/sweet/{{post.id}}">{{ post.pub_date|timesince }} ago</a></div>
+        <div class="date"><a href="{% url ublogging.views.sweet sweetid=post.id %}">{{ post.pub_date|timesince }} ago</a></div>
     </div>
 
 </div>

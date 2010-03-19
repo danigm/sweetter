@@ -3,7 +3,7 @@
         You are following {{ user.username }}
     {% endif %}
     <form action="{% url contrib.followers.views.follow user.id %}" method="post">
-        <button name="vote" value="1" class="follow"><img src="/static/{{ image }}.png" alt="follow">
+        <button name="vote" value="1" class="follow"><img src="{{ MEDIA_URL }}{{ image }}.png" alt="follow">
         {% if following %}
             Unfollow {{ user.username }}
         {% else %}

@@ -2,8 +2,7 @@
 
 <div class="group">
     <div class="avatar">
-        {% comment %} TODO: QUITAR EL /static/ {% endcomment %}
-        <img src="/static/{{ group.icon.url }}" alt="{{ group.name }}" title="{{ group.name }}"
+        <img src="{{ MEDIA_URL }}{{ group.icon.url }}" alt="{{ group.name }}" title="{{ group.name }}"
             width="40px" height="40px"/>
     </div>
     <div class="text">
