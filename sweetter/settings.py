@@ -105,6 +105,7 @@ INSTALLED_APPS = (
     'contrib.followers',
     'contrib.replies',
     'contrib.remove',
+    'contrib.shorturl',
 
     'jabberbot',
 )
@@ -119,6 +120,7 @@ INSTALLED_PLUGINS = (
     'contrib.followers.FollowerPlugin.FollowerList',
     'jabberbot.jabberplugin.JabberPlugin',
     'contrib.remove.RemovePlugin.RemovePlugin',
+    'contrib.shorturl.plugin.ShortUrlPlugin',
 )
 
 LOGIN_URL = "/login"
