@@ -25,12 +25,14 @@ def new_post(user, text, request=None):
     # hook for pluggins for intercepting messages. This can cancel posting them.
     for p in ublogging.plugins:
         if not intercepted:
-            intercepted = p.posting(request)
+            intercepted = p.posting(request, post)
 
     if not intercepted:
         post.save()
         for p in ublogging.plugins:
             p.posted(request, post)
+    else:
+        post = None
 
     return post
 

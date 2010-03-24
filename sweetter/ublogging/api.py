@@ -89,13 +89,14 @@ class Plugin:
 
         return value
 
-    def posting(self, request):
+    def posting(self, request, post):
         '''
         Called everytime a new post is being added.
         Return True for cancelling the post.
 
         Arguments:
             request -- is the user request.
+            post -- is the Post to be saved.
         '''
 
         return False
