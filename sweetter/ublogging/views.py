@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -24,12 +25,9 @@ import ublogging
 
 def sweet(request, sweetid):
     sweetid=int(sweetid)
-    try:
-        sweet = Post.objects.get(id=sweetid)
-        user = sweet.user
-        profile = Profile.objects.get(user=user)
-    except:
-        sweet = None
+    sweet = get_object_or_404(Post, id=sweetid)
+    user = sweet.user
+    profile = Profile.objects.get(user=user)
     return render_to_response('status/index.html', {
             'latest_post_list': None,
             'sweet': sweet,
@@ -58,8 +56,8 @@ def index(request):
 
 
 def user(request, user_name):
+    u = get_object_or_404(User, username=user_name)
     latest_post_list = uapi.user_timeline(user_name, request)
-    u = User.objects.get(username=user_name)
     return show_statuses(request, latest_post_list, user=u)
 
 
