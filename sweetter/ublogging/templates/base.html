@@ -65,6 +65,12 @@
             <a href="http://dev.sweetter.net" style="color:#000055;">Trac</a> |
             <a href="http://gitorious.org/sweetter" style="color:#000055;">Get the code!</a>
             {% endblock %}
+            <div class="flatpages">
+                {% for flatpage in flatpages %}
+                    <a href="{{ flatpage.url }}">{{ flatpage.title }}</a>
+                    {% if not forloop.last %} | {% endif %}
+                {% endfor %}
+            </div>
         </div>
 {% if debug %}
 <div id="debug">

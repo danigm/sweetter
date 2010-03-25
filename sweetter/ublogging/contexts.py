@@ -1,3 +1,5 @@
+from django.contrib.flatpages.models import FlatPage
+
 from ublogging.models import Profile
 
 
@@ -7,3 +9,6 @@ def profile(request):
         return {'user_profile': profile}
 
     return  {}
+
+def flatpages(request):
+    return {'flatpages': FlatPage.objects.all()}
